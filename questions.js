@@ -1303,29 +1303,29 @@ const questions = [
     "id": "TV_EY1",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Cho khổ thơ sau:\n\n“Thuyền ta chầm chậm vào Ba Bể\nNúi dựng cheo leo, hồ lặng im\nLá rừng với gió ngân se sẽ\nHọa tiếng lòng ta với tiếng chim.”\n\nHãy tìm các Danh từ, Động từ, Tính từ, Đại từ, và Quan hệ từ có trong khổ thơ trên.",
-    "explanation": "<strong>Lời giải thích chi tiết:</strong><br>- <strong>Danh từ:</strong> thuyền, Ba Bể, núi, hồ, lá rừng, gió, tiếng lòng, tiếng chim.<br>- <strong>Động từ:</strong> vào, dựng, lặng im (chỉ trạng thái), ngân, họa.<br>- <strong>Tính từ:</strong> chầm chậm, cheo leo, se sẽ.<br>- <strong>Đại từ:</strong> ta (đại từ nhân xưng).<br>- <strong>Quan hệ từ:</strong> với (trong 'Lá rừng với gió' và 'Họa tiếng lòng ta với tiếng chim')."
+    "question": "Cho khổ thơ sau:\n“Thuyền ta chầm chậm vào Ba Bể\nNúi dựng cheo leo, hồ lặng im\nLá rừng với gió ngân se sẽ\nHọa tiếng lòng ta với tiếng chim.”\nHãy tìm các Danh từ, Động từ, Tính từ, Đại từ, và Quan hệ từ có trong khổ thơ trên.",
+    "explanation": "<strong>Lời giải chi tiết:</strong><br>- <strong>Danh từ:</strong> thuyền, Ba Bể, núi, hồ, lá rừng, gió, tiếng lòng, tiếng chim.<br>- <strong>Động từ:</strong> vào, dựng, lặng im, ngân, họa.<br>- <strong>Tính từ:</strong> chầm chậm, cheo leo, se sẽ.<br>- <strong>Đại từ:</strong> ta (đại từ nhân xưng ngôi thứ nhất).<br>- <strong>Quan hệ từ:</strong> với (trong 'Lá rừng với gió' và 'Họa tiếng lòng ta với tiếng chim')."
   },
   {
     "id": "TV_EY2",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Tìm trạng ngữ, chủ ngữ, vị ngữ trong các câu dưới đây:\n\na) Hôm nay, tất cả học sinh khối năm làm bài khảo sát môn Toán, Tiếng Việt và Tiếng Anh.\nb) Mùa đông, gia đình nhà chim gõ kiến, chim họa mi ẩn náu trong hốc cây.\nc) Những con sếu đầu đỏ bay lững thững trên cánh đồng.\nd) Tuy ông nội tôi đã già nhưng ông vẫn làm vườn để mua vui mỗi ngày.",
-    "explanation": "<strong>Lời giải chi tiết:</strong><br>a) <strong>Trạng ngữ:</strong> Hôm nay (TN chỉ thời gian). <strong>Chủ ngữ:</strong> tất cả học sinh khối năm. <strong>Vị ngữ:</strong> làm bài khảo sát môn Toán, Tiếng Việt và Tiếng Anh.<br>b) <strong>Trạng ngữ:</strong> Mùa đông (TN chỉ thời gian). <strong>Chủ ngữ:</strong> gia đình nhà chim gõ kiến, chim họa mi. <strong>Vị ngữ:</strong> ẩn náu trong hốc cây.<br>c) <strong>Trạng ngữ:</strong> Không có. <strong>Chủ ngữ:</strong> Những con sếu đầu đỏ. <strong>Vị ngữ:</strong> bay lững thững trên cánh đồng.<br>d) Câu ghép có 2 vế nối bằng cặp QHT 'Tuy... nhưng...':<br>- Vế 1: <strong>Chủ ngữ 1:</strong> ông nội tôi | <strong>Vị ngữ 1:</strong> đã già.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> ông | <strong>Vị ngữ 2:</strong> vẫn làm vườn để mua vui mỗi ngày."
+    "question": "Tìm trạng ngữ, chủ ngữ, vị ngữ trong các câu dưới đây:\na) Hôm nay, tất cả học sinh khối năm làm bài khảo sát môn Toán, Tiếng Việt và Tiếng Anh.\nb) Mùa đông, gia đình nhà chim gõ kiến, chim họa mi ẩn náu trong hốc cây.\nc) Những con sếu đầu đỏ bay lững thững trên cánh đồng.\nd) Tuy ông nội tôi đã già nhưng ông vẫn làm vườn để mua vui mỗi ngày.",
+    "explanation": "<strong>Lời giải chi tiết:</strong><br>a) <strong>Trạng ngữ:</strong> Hôm nay. <strong>Chủ ngữ:</strong> tất cả học sinh khối năm. <strong>Vị ngữ:</strong> làm bài khảo sát môn Toán, Tiếng Việt và Tiếng Anh.<br>b) <strong>Trạng ngữ:</strong> Mùa đông. <strong>Chủ ngữ:</strong> gia đình nhà chim gõ kiến, chim họa mi. <strong>Vị ngữ:</strong> ẩn náu trong hốc cây.<br>c) <strong>Trạng ngữ:</strong> Không có. <strong>Chủ ngữ:</strong> Những con sếu đầu đỏ. <strong>Vị ngữ:</strong> bay lững thững trên cánh đồng.<br>d) Câu ghép có 2 vế nối bằng cặp quan hệ từ 'Tuy... nhưng...':<br>- Vế 1: <strong>Chủ ngữ:</strong> ông nội tôi | <strong>Vị ngữ:</strong> đã già.<br>- Vế 2: <strong>Chủ ngữ:</strong> ông | <strong>Vị ngữ:</strong> vẫn làm vườn để mua vui mỗi ngày."
   },
   {
     "id": "TV_EY3",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
     "question": "Cho các từ sau: trường mầm non, mầm non mới nhú lên, trẻ em là mầm non của đất nước, quả xanh, áo xanh, quả thận, quả bóng, quả cam. Xác định từ nào mang nghĩa gốc, từ nào mang nghĩa chuyển của các từ gạch chân (mầm non, xanh, quả).",
-    "explanation": "<strong>Lời giải chi tiết:</strong><br>- <strong>Từ 'mầm non':</strong><br>  + Nghĩa gốc: 'mầm non mới nhú lên' (chỉ bộ phận non nớt của cây).<br>  + Nghĩa chuyển: 'trường mầm non' (chỉ cấp học nhỏ tuổi), 'trẻ em là mầm non của đất nước' (chỉ thế hệ tương lai).<br>- <strong>Từ 'xanh':</strong><br>  + Nghĩa gốc: 'quả xanh' (chỉ màu sắc xanh của quả), 'áo xanh' (chỉ màu sắc của áo).<br>- <strong>Từ 'quả':</strong><br>  + Nghĩa gốc: 'quả cam' (chỉ bộ phận chứa hạt của cây ăn quả).<br>  + Nghĩa chuyển: 'quả thận' (chỉ cơ quan nội tạng), 'quả bóng' (chỉ vật thể hình cầu dùng để chơi)."
+    "explanation": "<strong>Lời giải chi tiết:</strong><br>- <strong>Từ 'mầm non':</strong><br>  + Nghĩa gốc: 'mầm non mới nhú lên' (chỉ bộ phận mới mọc của cây).<br>  + Nghĩa chuyển: 'trường mầm non' (chỉ trường cho trẻ nhỏ), 'trẻ em là mầm non của đất nước' (chỉ thế hệ tương lai).<br>- <strong>Từ 'xanh':</strong><br>  + Nghĩa gốc: 'quả xanh' (màu xanh của quả quả chưa chín), 'áo xanh' (màu xanh của áo).<br>- <strong>Từ 'quả':</strong><br>  + Nghĩa gốc: 'quả cam' (bộ phận cây chứa hạt).<br>  + Nghĩa chuyển: 'quả thận' (bộ phận cơ thể), 'quả bóng' (vật thể dạng cầu), 'quả xanh' (cách gọi quả nói chung)."
   },
   {
     "id": "TV_EY4",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Trong bài 'Khúc hát ru những em bé lớn trên lưng mẹ', nhà thơ Nguyễn Khoa Điềm viết:\n\n“Mặt trời của bắp thì nằm trên núi\nMặt trời của mẹ, em nằm trên lưng.”\n\nHãy nêu cảm nhận của em về hình ảnh mặt trời trong hai câu thơ cuối.",
-    "explanation": "<strong>Lời giải chi tiết tham khảo:</strong><br>Đoạn thơ sử dụng hình ảnh đối chiếu độc đáo giữa hai 'mặt trời':<br>1. 'Mặt trời của bắp': Là mặt trời của thiên nhiên vũ trụ, tỏa ánh sáng và hơi ấm giúp cây bắp sinh trưởng, mang lại lương thực cho con người.<br>2. 'Mặt trời của mẹ': Là hình ảnh ẩn dụ sâu sắc chỉ đứa con yêu thương đang nằm trên lưng mẹ. Con chính là mặt trời bé con ấm áp nhất, là nguồn sống, niềm tin, nguồn cổ vũ to lớn giúp người mẹ có thêm sức mạnh vượt qua mọi khó khăn, gian khổ để làm việc, chiến đấu vì độc lập tự do. Đoạn thơ thể hiện tình mẫu tử thiêng liêng, cao cả gắn liền với tình yêu quê hương, đất nước."
+    "question": "Trong bài 'Khúc hát ru những em bé lớn trên lưng mẹ', nhà thơ Nguyễn Khoa Điềm viết:\n“Lưng núi thì to mà lưng mẹ nhỏ\nEm ngủ ngoan em đừng làm mẹ mỏi\nMặt trời của bắp thì nằm trên núi\nMặt trời của mẹ, em nằm trên lưng.”\nHãy nêu cảm nhận của em về hình ảnh mặt trời được diễn tả trong hai câu thơ cuối.",
+    "explanation": "<strong>Bài tham khảo cảm thụ:</strong><br>Hai câu thơ cuối sử dụng nghệ thuật đối chiếu độc đáo giữa hai hình ảnh 'mặt trời'. Hình ảnh 'mặt trời của bắp' ở câu thứ ba là mặt trời thực tế của thiên nhiên vũ trụ, đem lại ánh sáng, hơi ấm nuôi dưỡng cây bắp trên nương rẫy xanh tươi. Đến câu cuối, hình ảnh ẩn dụ xuất sắc 'mặt trời của mẹ' dùng để chỉ em bé đang nằm ngủ ngoan trên lưng mẹ. Con chính là mặt trời nhỏ ấm áp, là nguồn sống, nguồn hy vọng và niềm hạnh phúc vô biên của cuộc đời người mẹ. Tình mẫu tử hòa quyện sâu sắc với tình yêu cách mạng, yêu quê hương đất nước trong cuộc kháng chiến gian khổ."
   },
   {
     "id": "TV_EY5",
@@ -1338,42 +1338,42 @@ const questions = [
     "id": "TV_EY6",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Đặt câu theo yêu cầu sau để phân biệt nghĩa gốc và nghĩa chuyển:\n\na) Từ 'chạy' mang nghĩa gốc.\nb) Từ 'chạy' mang nghĩa chuyển.\nc) Từ 'xanh' mang nghĩa gốc.\nd) Từ 'xanh' mang nghĩa chuyển.",
-    "explanation": "<strong>Đáp án gợi ý:</strong><br>a) Từ 'chạy' nghĩa gốc (hoạt động dời chân nhanh bằng cơ thể): <em>Các cầu thủ đang chạy rất nhanh trên sân cỏ.</em><br>b) Từ 'chạy' nghĩa chuyển (hoạt động di chuyển cơ học/buôn bán/lo liệu): <em>Đồng hồ nhà em chạy rất chính xác.</em> hoặc <em>Bố em phải chạy vạy khắp nơi để lo tiền học.</em><br>c) Từ 'xanh' nghĩa gốc (chỉ màu sắc của lá cây/trời): <em>Lá bàng mùa hè xanh um tùm.</em><br>d) Từ 'xanh' nghĩa chuyển (chỉ trạng thái chưa chín/non nớt/tái mét): <em>Mặt bạn ấy xanh như tàu lá chuối sau khi nghe tin dữ.</em> hoặc <em>Đầu óc cậu ấy còn xanh lắm, chưa có kinh nghiệm.</em>"
+    "question": "Đặt câu theo yêu cầu sau để phân biệt nghĩa gốc và nghĩa chuyển:\na) Từ 'chạy' mang nghĩa gốc.\nb) Từ 'chạy' mang nghĩa chuyển.\nc) Từ 'xanh' mang nghĩa gốc.\nd) Từ 'xanh' mang nghĩa chuyển.",
+    "explanation": "<strong>Đáp án gợi ý:</strong><br>a) Từ 'chạy' nghĩa gốc (hoạt động dời chân nhanh bằng cơ thể): <em>Các vận động viên đang chạy đua trên đường chạy.</em><br>b) Từ 'chạy' nghĩa chuyển (hoạt động của máy móc/buôn bán): <em>Đồng hồ đeo tay của em chạy rất êm.</em> hoặc <em>Nhà em đang chạy tiền đóng học phí.</em><br>c) Từ 'xanh' nghĩa gốc (chỉ màu sắc của lá cây/trời): <em>Bầu trời mùa thu xanh trong vắt.</em><br>d) Từ 'xanh' nghĩa chuyển (chỉ trạng thái chưa chín/non nớt/tái mét): <em>Mặt cậu ấy xanh mét vì sợ hãi.</em> hoặc <em>Kinh nghiệm của cậu ấy còn xanh lắm.</em>"
   },
   {
     "id": "TV_EY7",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
     "question": "Dựa vào từ láy 'lung linh', hãy tạo ra 8 từ láy khác đều có khuôn vần 'ung – inh' bằng cách thay đổi âm đầu hoặc thanh (hoặc cả âm đầu và thanh) ở 2 tiếng sao cho thích hợp.",
-    "explanation": "<strong>Lời giải gợi ý:</strong><br>Các từ láy có khuôn vần 'ung - inh' là:<br>1. Rung rinh<br>2. Xung xinh (hoặc xúng xính)<br>3. Thung thinh<br>4. Bùng binh<br>5. Mung minh<br>6. Phúng phính<br>7. Trung trinh<br>8. Rùng rình"
+    "explanation": "<strong>Lời giải gợi ý:</strong><br>Các từ láy có khuôn vần 'ung - inh' có thể tạo ra gồm:<br>1. Rung rinh<br>2. Xúng xính<br>3. Thung thinh<br>4. Bùng binh<br>5. Mung minh<br>6. Phúng phính<br>7. Trung trinh<br>8. Rùng rình"
   },
   {
     "id": "TV_EY8",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Trong bài 'Con cò', nhà thơ Chế Lan Viên có viết:\n\n“Con dù lớn vẫn là con mẹ\nĐi hết đời, lòng mẹ vẫn theo con.”\n\nHai dòng thơ trên đã giúp em cảm nhận được điều gì đẹp đẽ và sâu sắc về tình mẫu tử?",
-    "explanation": "<strong>Bài viết tham khảo:</strong><br>Hai dòng thơ sâu sắc của Chế Lan Viên đã đúc kết quy luật mẫu tử thiêng liêng và bất diệt. Lòng mẹ bao dung, vĩ đại bao trùm suốt cuộc đời con. Dù con có khôn lớn trưởng thành đến đâu, bay cao bay xa thế nào thì đối với mẹ, con vẫn luôn là đứa con bé bỏng cần được yêu thương, chở che. Sự dõi theo của lòng mẹ không giới hạn bởi không gian hay thời gian ('Đi hết đời, lòng mẹ vẫn theo con'). Tình thương yêu vô bờ bến ấy chính là điểm tựa tinh thần vững chãi nhất giúp con vững vàng trên mọi nẻo đường đời."
+    "question": "Trong bài 'Con cò', nhà thơ Chế Lan Viên có viết:\n“Con dù lớn vẫn là con mẹ\nĐi hết đời, lòng mẹ vẫn theo con.”\nHai dòng thơ trên đã giúp em cảm nhận được điều gì đẹp đẽ và sâu sắc về tình mẫu tử?",
+    "explanation": "<strong>Bài viết tham khảo:</strong><br>Hai dòng thơ tuy giản dị nhưng chứa đựng một chân lý thiêng liêng, bất diệt về tình mẫu tử. Câu thơ khẳng định vị trí độc tôn của người mẹ trong cuộc đời con: dù con có trưởng thành, khôn lớn bay cao bay xa thế nào đi nữa thì đối với mẹ, con vẫn luôn là đứa con nhỏ bé, ngây thơ cần được yêu thương, che chở. Tình mẹ vĩ đại bao dung theo chân con suốt cuộc đời ('Đi hết đời, lòng mẹ vẫn theo con'), là điểm tựa tinh thần vững chắc, an lành nhất tiếp thêm sức mạnh cho con vượt qua giông bão cuộc đời."
   },
   {
     "id": "TV_EY9",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Xác định trạng ngữ, chủ ngữ, vị ngữ của các câu sau:\n\na) Nắng trưa đã rọi xuống đỉnh đầu mà rừng sâu vẫn ẩm lạnh, ánh nắng lọt qua lá trong xanh.\nb) Cò và Vạc là hai anh em nhưng tính nết rất khác nhau.\nc) Một cô bé vừa gầy vừa thấp bị thầy giáo loại ra khỏi dàn đồng ca.\nd) Trong vườn, các loài hoa đua nở và ong bướm bay về đây rất nhiều.\ne) Tuy ông nội em đã già nhưng ông vẫn còn rất khỏe.",
-    "explanation": "<strong>Lời giải chi tiết:</strong><br>a) Câu ghép có 3 vế:<br>- Vế 1: <strong>Chủ ngữ 1:</strong> Nắng trưa | <strong>Vị ngữ 1:</strong> đã rọi xuống đỉnh đầu.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> rừng sâu | <strong>Vị ngữ 2:</strong> vẫn ẩm lạnh.<br>- Vế 3: <strong>Chủ ngữ 3:</strong> ánh nắng | <strong>Vị ngữ 3:</strong> lọt qua lá trong xanh.<br>b) Câu ghép 2 vế nối bằng QHT 'nhưng':<br>- Vế 1: <strong>Chủ ngữ 1:</strong> Cò và Vạc | <strong>Vị ngữ 1:</strong> là hai anh em.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> tính nết | <strong>Vị ngữ 2:</strong> rất khác nhau.<br>c) Câu đơn:<br>- <strong>Chủ ngữ:</strong> Một cô bé vừa gầy vừa thấp.<br>- <strong>Vị ngữ:</strong> bị thầy giáo loại ra khỏi dàn đồng ca.<br>d) Câu ghép có trạng ngữ chỉ nơi chốn 'Trong vườn' dùng chung cho 2 vế:<br>- <strong>Trạng ngữ:</strong> Trong vườn.<br>- Vế 1: <strong>Chủ ngữ 1:</strong> các loài hoa | <strong>Vị ngữ 1:</strong> đua nở.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> ong, bướm | <strong>Vị ngữ 2:</strong> bay về đây rất nhiều.\ne) Câu ghép 2 vế nối bằng cặp QHT 'Tuy... nhưng...':<br>- Vế 1: <strong>Chủ ngữ 1:</strong> ông nội em | <strong>Vị ngữ 1:</strong> đã già.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> ông | <strong>Vị ngữ 2:</strong> vẫn còn rất khỏe."
+    "question": "Xác định trạng ngữ, chủ ngữ, vị ngữ của các câu sau:\na) Nắng trưa đã rọi xuống đỉnh đầu mà rừng sâu vẫn ẩm lạnh, ánh nắng lọt qua lá trong xanh.\nb) Cò và Vạc là hai anh em nhưng tính nết rất khác nhau.\nc) Một cô bé vừa gầy vừa thấp bị thầy giáo loại ra khỏi dàn đồng ca.\nd) Trong vườn, các loài hoa đua nở và ong bướm bay về đây rất nhiều.\ne) Tuy ông nội em đã già nhưng ông vẫn còn rất khỏe.",
+    "explanation": "<strong>Lời giải chi tiết:</strong><br>a) Câu ghép có 3 vế:<br>- Vế 1: <strong>Chủ ngữ 1:</strong> Nắng trưa | <strong>Vị ngữ 1:</strong> đã rọi xuống đỉnh đầu.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> rừng sâu | <strong>Vị ngữ 2:</strong> vẫn ẩm lạnh.<br>- Vế 3: <strong>Chủ ngữ 3:</strong> ánh nắng | <strong>Vị ngữ 3:</strong> lọt qua lá trong xanh.<br>b) Câu ghép 2 vế nối bằng QHT 'nhưng':<br>- Vế 1: <strong>Chủ ngữ 1:</strong> Cò và Vạc | <strong>Vị ngữ 1:</strong> là hai anh em.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> tính nết | <strong>Vị ngữ 2:</strong> rất khác nhau.<br>c) Câu đơn:<br>- <strong>Chủ ngữ:</strong> Một cô bé vừa gầy vừa thấp.<br>- <strong>Vị ngữ:</strong> bị thầy giáo loại ra khỏi dàn đồng ca.<br>d) Câu ghép có trạng ngữ chỉ nơi chốn 'Trong vườn' dùng chung cho 2 vế:<br>- <strong>Trạng ngữ:</strong> Trong vườn.<br>- Vế 1: <strong>Chủ ngữ 1:</strong> các loài hoa | <strong>Vị ngữ 1:</strong> đua nở.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> ong, bướm | <strong>Vị ngữ 2:</strong> bay về đây rất nhiều.<br>e) Câu ghép 2 vế nối bằng cặp QHT 'Tuy... nhưng...':<br>- Vế 1: <strong>Chủ ngữ 1:</strong> ông nội em | <strong>Vị ngữ 1:</strong> đã già.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> ông | <strong>Vị ngữ 2:</strong> vẫn còn rất khỏe."
   },
   {
     "id": "TV_EY10",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Xác định từ loại (Danh từ, động từ hay tính từ) của những từ in đậm trong các câu sau:\n\na) Trong chiến dịch này, thắng lợi của chúng ta là rất lớn.\nb) Trong chiến dịch này, chúng ta đang thắng lợi lớn.\nc) Trong chiến dịch này, chúng ta đạt được kết quả rất thắng lợi.\nd) Thắng lợi này có ý nghĩa rất quan trọng đối với quân dân ta.",
+    "question": "Xác định từ loại (Danh từ, động từ hay tính từ) của những từ in đậm trong các câu sau:\na) Trong chiến dịch này, thắng lợi của chúng ta là rất lớn.\nb) Trong chiến dịch này, chúng ta đang thắng lợi lớn.\nc) Trong chiến dịch này, chúng ta đạt được kết quả rất thắng lợi.\nd) Thắng lợi này có ý nghĩa rất quan trọng đối với quân dân ta.",
     "explanation": "<strong>Lời giải chi tiết:</strong><br>a) Từ 'thắng lợi' trong câu này đứng sau quán từ 'sự/nỗi/niềm' (ngầm hiểu thắng lợi của chúng ta) đóng vai trò làm Chủ ngữ nên là <strong>Danh từ</strong>.<br>b) Từ 'thắng lợi' trong câu này đi sau phó từ chỉ thời gian 'đang' chỉ hoạt động nên là <strong>Động từ</strong>.<br>c) Từ 'thắng lợi' trong câu này đi sau từ chỉ mức độ 'rất', bổ nghĩa cho danh từ 'kết quả' nên là <strong>Tính từ</strong>.<br>d) Từ 'thắng lợi' đứng đầu câu làm chủ ngữ chỉ sự việc nên là <strong>Danh từ</strong>."
   },
   {
     "id": "TV_EY11",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Cho đoạn văn sau:\n\n“Cầu Thê Húc màu son, cong như con tôm, dẫn vào đền Ngọc Sơn. Mái đền lấp ló bên gốc đa già, rễ lá xum xuê. Xa một chút là Tháp Rùa, tường rêu cổ kính. Tháp xây trên gò đất giữa hồ, cỏ mọc xanh um.”\n\nHãy xếp các từ gạch chân (Cầu Thê Húc, mái đền, lấp ló, già, Tháp Rùa, tường rêu, xây, xanh um) vào 3 nhóm: Danh từ, Động từ, Tính từ.",
+    "question": "Cho đoạn văn sau:\n“Cầu Thê Húc màu son, cong như con tôm, dẫn vào đền Ngọc Sơn. Mái đền lấp ló bên gốc đa già, rễ lá xum xuê. Xa một chút là Tháp Rùa, tường rêu cổ kính. Tháp xây trên gò đất giữa hồ, cỏ mọc xanh um.”\nHãy xếp các từ gạch chân (Cầu Thê Húc, mái đền, lấp ló, già, Tháp Rùa, tường rêu, xây, xanh um) vào 3 nhóm: Danh từ, Động từ, Tính từ.",
     "explanation": "<strong>Lời giải chi tiết:</strong><br>- <strong>Danh từ:</strong> Cầu Thê Húc, mái đền, Tháp Rùa, tường rêu.<br>- <strong>Động từ:</strong> lấp ló, xây.<br>- <strong>Tính từ:</strong> già, xanh um."
   },
   {
@@ -1387,22 +1387,57 @@ const questions = [
     "id": "TV_EY13",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Đặt câu để phân biệt các từ đồng âm sau:\n\na) Từ 'đứng' làm động từ (chỉ tư thế thẳng của cơ thể).\nb) Từ 'đứng' làm động từ nghĩa chuyển hoặc nghĩa đồng âm khác (ví dụ: đứng gió, đứng bóng).",
-    "explanation": "<strong>Đáp án gợi ý:</strong><br>a) Đặt câu với từ 'đứng' chỉ tư thế thẳng đứng: <em>Chúng em đứng trang nghiêm dưới cờ Tổ quốc để chào cờ.</em><br>b) Đặt câu với từ 'đứng' chỉ thời tiết hoặc hiện tượng: <em>Trưa hè, trời đứng gió nên không khí vô cùng oi bức.</em> hoặc <em>Mặt trời đã đứng bóng, các bác nông dân rủ nhau nghỉ ngơi dưới gốc đa.</em>"
+    "question": "Đặt câu để phân biệt các từ đồng âm sau:\na) Từ 'đứng' làm động từ (chỉ tư thế đứng thẳng).\nb) Từ 'đứng' nghĩa chuyển hoặc đồng âm khác (ví dụ: đứng bóng, đứng gió).",
+    "explanation": "<strong>Đáp án gợi ý:</strong><br>a) Từ 'đứng' chỉ tư thế thẳng đứng: <em>Chúng em đứng trang nghiêm dưới cờ Tổ quốc để chào cờ.</em><br>b) Từ 'đứng' chỉ thời tiết hoặc hiện tượng: <em>Trưa hè, trời đứng gió nên không khí vô cùng oi bức.</em> hoặc <em>Mặt trời đã đứng bóng, các bác nông dân rủ nhau nghỉ ngơi dưới gốc đa.</em>"
   },
   {
     "id": "TV_EY14",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Thực hiện các yêu cầu ngữ pháp sau:\n\na) Tìm danh từ, động từ, tính từ, đại từ trong câu: “Cây lá vừa tắm mưa xong, đang được mặt trời lau ráo, lúc ấy trông nó vừa tươi mát, vừa ấm áp.”\nb) Thêm dấu câu thích hợp vào câu sau: “Phượng gợi nhắc mùa thi đã đến mùa hè sắp về sắp gặt hái thành quả của chín tháng miệt mài học tập.”",
+    "question": "Thực hiện các yêu cầu ngữ pháp sau:\na) Tìm danh từ, động từ, tính từ, đại từ trong câu: “Cây lá vừa tắm mưa xong, đang được mặt trời lau ráo, lúc ấy trông nó vừa tươi mát, vừa ấm áp.”\nb) Thêm dấu câu thích hợp vào câu sau: “Phượng gợi nhắc mùa thi đã đến mùa hè sắp về sắp gặt hái thành quả của chín tháng miệt mài học tập.”",
     "explanation": "<strong>Lời giải chi tiết:</strong><br>a) Xác định từ loại:<br>- <strong>Danh từ:</strong> cây lá, mặt trời.<br>- <strong>Động từ:</strong> tắm, lau, trông.<br>- <strong>Tính từ:</strong> ráo, tươi mát, ấm áp.<br>- <strong>Đại từ:</strong> nó, lúc ấy.<br>b) Thêm dấu câu thích hợp:<br><em>“Phượng gợi nhắc mùa thi đã đến, mùa hè sắp về, sắp gặt hái thành quả của chín tháng miệt mài học tập.”</em> (Thêm hai dấu phẩy ngăn cách các vế câu và cụm vị ngữ)."
   },
   {
     "id": "TV_EY15",
     "category": "Tự luận cảm thụ & Ngữ pháp",
     "type": "essay",
-    "question": "Đọc đoạn thơ sau trong bài 'Đất và cây' của nhà thơ Ý Nhi:\n\n“Đất thương cây non trẻ\nNuôi cây dần lớn khôn\nCây thương mẹ vất vả\nTỏa một màu mát êm.”\n\nHãy cho biết biện pháp nghệ thuật nổi bật sử dụng trong đoạn thơ trên. Biện pháp nghệ thuật đó giúp em cảm nhận được điều gì đẹp đẽ trong cuộc sống của chúng ta?",
+    "question": "Đọc đoạn thơ sau trong bài 'Đất và cây' của nhà thơ Ý Nhi:\n“Đất thương cây non trẻ\nNuôi cây dần lớn khôn\nCây thương mẹ vất vả\nTỏa một màu mát êm.”\nHãy cho biết biện pháp nghệ thuật nổi bật sử dụng trong đoạn thơ trên. Biện pháp nghệ thuật đó giúp em cảm nhận được điều gì đẹp đẽ trong cuộc sống của chúng ta?",
     "explanation": "<strong>Lời giải chi tiết:</strong><br>- <strong>Biện pháp nghệ thuật nổi bật:</strong> Biện pháp Nhân hóa ('Đất' thương và nuôi 'cây'; 'Cây' biết thương 'mẹ' vất vả và biết tỏa bóng mát đền đáp). Tác giả đã dùng những từ chỉ cảm xúc, hoạt động của con người ('thương', 'nuôi', 'vất vả', 'lớn khôn') để gán cho các sự vật thiên nhiên.<br>- <strong>Cảm nhận sâu sắc:</strong> Qua hình ảnh đất mẹ bao dung che chở nuôi nấng cây non khôn lớn, và cây non hiếu thảo biết dâng tặng bóng mát êm dịu đền đáp công ơn, tác giả giúp chúng ta cảm nhận được vẻ đẹp thiêng liêng của tình cảm gia đình. Đó chính là tình thương yêu vô điều kiện của cha mẹ và lòng hiếu thảo, biết ơn đền đáp công ơn dưỡng dục vô bờ bến của con cái đối với cha mẹ."
+  },
+  {
+    "id": "TV_EY16",
+    "category": "Tự luận cảm thụ & Ngữ pháp",
+    "type": "essay",
+    "question": "Xác định danh từ, động từ, tính từ của các từ gạch chân dưới đây:\n- Nhường cơm sẻ áo\n- Giấy rách phải giữ lấy lề\n- Đói cho sạch, rách cho thơm\n- Lá lành đùm lá rách",
+    "explanation": "<strong>Lời giải chi tiết:</strong><br>- <strong>Danh từ:</strong> cơm, áo, giấy, lề, lá.<br>- <strong>Động từ:</strong> nhường, sẻ, giữ, lấy, đùm.<br>- <strong>Tính từ:</strong> rách, đói, sạch, thơm, lành."
+  },
+  {
+    "id": "TV_EY17",
+    "category": "Tự luận cảm thụ & Ngữ pháp",
+    "type": "essay",
+    "question": "Xác định chủ ngữ, vị ngữ và trạng ngữ trong các câu sau:\na) Những con chồn sóc với bộ lông đuôi to xù đẹp đẽ chuyền nhanh qua các cành cây.\nb) Trên các sườn đồi, những cánh đồng hoa cải nở vàng rực tạo nên một bức tranh thiên nhiên tuyệt đẹp.",
+    "explanation": "<strong>Lời giải chi tiết:</strong><br>a) Câu đơn:<br>- <strong>Chủ ngữ:</strong> Những con chồn sóc với bộ lông đuôi to xù đẹp đẽ.<br>- <strong>Vị ngữ:</strong> chuyền nhanh qua các cành cây.<br>b) Câu đơn có trạng ngữ chỉ nơi chốn:<br>- <strong>Trạng ngữ:</strong> Trên các sườn đồi.<br>- <strong>Chủ ngữ:</strong> những cánh đồng hoa cải nở vàng rực.<br>- <strong>Vị ngữ:</strong> tạo nên một bức tranh thiên nhiên tuyệt đẹp."
+  },
+  {
+    "id": "TV_EY18",
+    "category": "Tự luận cảm thụ & Ngữ pháp",
+    "type": "essay",
+    "question": "Xác định CN, VN của các câu dưới đây:\na) Trong những bụi cây, thấp thoáng những bông hoa dã quỳ vàng rực.\nb) Làng mạc bị tàn phá nhưng mảnh đất quê hương vẫn trù phú, đầy sức sống.",
+    "explanation": "<strong>Lời giải chi tiết:</strong><br>a) Câu đảo ngữ:<br>- <strong>Trạng ngữ:</strong> Trong những bụi cây.<br>- <strong>Vị ngữ:</strong> thấp thoáng.<br>- <strong>Chủ ngữ:</strong> những bông hoa dã quỳ vàng rực.<br>b) Câu ghép 2 vế nối bằng QHT 'nhưng':<br>- Vế 1: <strong>Chủ ngữ 1:</strong> Làng mạc | <strong>Vị ngữ 1:</strong> bị tàn phá.<br>- Vế 2: <strong>Chủ ngữ 2:</strong> mảnh đất quê hương | <strong>Vị ngữ 2:</strong> vẫn trù phú, đầy sức sống."
+  },
+  {
+    "id": "TV_EY19",
+    "category": "Tự luận cảm thụ & Ngữ pháp",
+    "type": "essay",
+    "question": "Trong bài 'Bác ơi', nhà thơ Tố Hữu viết:\n“Bác sống như trời đất của ta\nYêu từng ngọn lúa, mỗi nhành hoa\nTự do cho mỗi đời nô lệ\nSữa để em thơ, lụa tặng già.”\nĐoạn thơ đã giúp em hiểu được nét đẹp gì trong cuộc sống của Bác Hồ kính yêu?",
+    "explanation": "<strong>Bài viết tham khảo cảm thụ:</strong><br>Đoạn thơ ca ngợi lẽ sống cao đẹp, vĩ đại và nhân ái vô bờ bến của Bác Hồ kính yêu. Lối sống của Bác được ví rộng lớn bao la như 'trời đất của ta', tự nhiên, gần gũi và đầy ắp tình thương yêu đối với vạn vật ('từng ngọn lúa, mỗi nhành hoa'). Đặc biệt, lẽ sống của Người luôn hướng về nhân dân, hi sinh cuộc đời mình vì tự do của Tổ quốc ('Tự do cho mỗi đời nô lệ') và chăm lo chu đáo cho từng đối tượng từ trẻ nhỏ đến người già ('Sữa để em thơ, lụa tặng già'). Đó chính là biểu tượng của tình yêu thương bao la và tinh thần hiến dâng trọn vẹn của vị cha già dân tộc."
+  },
+  {
+    "id": "TV_EY20",
+    "category": "Tự luận cảm thụ & Ngữ pháp",
+    "type": "essay",
+    "question": "Một buổi đến trường, em bỗng nghe thấy tiếng ve kêu râm ran hoặc nhìn thấy những chùm hoa phượng nở đỏ báo hiệu mùa hè đã đến. Hãy viết một đoạn văn (6 đến 8 câu) tả lại cảnh đó và nêu cảm xúc của em. Trong đoạn văn có dùng biện pháp so sánh, nhân hóa.",
+    "explanation": "<strong>Đoạn văn tham khảo:</strong><br>Sáng nay, khi bước chân vào cổng trường, lòng tôi bỗng rộn ràng khi nghe khúc nhạc ve kêu râm ran trong vòm lá. Trên cao, những bác phượng già đã khoác lên mình chiếc áo choàng hoa đỏ rực rỡ, kiêu hãnh khoe sắc dưới ánh nắng mai. Từng chùm hoa phượng nở bung, trông xa như những đốm lửa bập bùng thắp sáng cả một góc trời. Làn gió nhẹ thổi qua làm những cánh hoa mỏng manh khẽ rơi rụng, rải một tấm thảm đỏ êm ái trên sân trường. Cảnh tượng ấy báo hiệu một mùa hè sôi động đã gõ cửa. Nhìn ngắm hoa phượng rơi, tôi vừa háo hức trước kỳ nghỉ hè phía trước, vừa dâng lên cảm giác bâng khuâng luyến tiếc mái trường và thầy cô thân yêu."
   }
 ];
 
