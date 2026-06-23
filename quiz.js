@@ -5,7 +5,7 @@
 // App State
 let activeQuestions = [];
 let currentIndex = 0;
-let userAnswers = {}; // { questionId: selectedOption }
+let userAnswers = {}; // { questionId: selectedOptionOrText }
 let flaggedQuestions = new Set();
 let timerInterval = null;
 let startTime = null;
@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initTheme() {
-    // Check local storage or system preference
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
         bodyEl.classList.add("dark-theme");
@@ -111,9 +110,7 @@ function registerEvents() {
         const card = e.target.closest(".category-card");
         if (!card) return;
         
-        // Remove active class from all
         categorySelector.querySelectorAll(".category-card").forEach(c => c.classList.remove("active"));
-        // Add active to selected
         card.classList.add("active");
         selectedCategory = card.dataset.category;
     });
@@ -151,10 +148,10 @@ function registerEvents() {
     showExplainBtnInstant.addEventListener("click", () => {
         if (explanationBoxInstant.style.display === "none") {
             explanationBoxInstant.style.display = "block";
-            showExplainBtnInstant.innerHTML = `<i class="fa-solid fa-circle-chevron-up"></i> Ẩn giải thích`;
+            showExplainBtnInstant.innerHTML = `<i class="fa-solid fa-circle-chevron-up"></i> Ẩn lời giải mẫu`;
         } else {
             explanationBoxInstant.style.display = "none";
-            showExplainBtnInstant.innerHTML = `<i class="fa-solid fa-circle-info"></i> Xem giải thích đáp án`;
+            showExplainBtnInstant.innerHTML = `<i class="fa-solid fa-circle-info"></i> Xem lời giải mẫu & lí giải`;
         }
     });
 
@@ -170,14 +167,12 @@ function registerEvents() {
     submitReportBtn.addEventListener("click", submitErrorReport);
 }
 
-// Utility to switch screens
 function switchScreen(targetScreen) {
     document.querySelectorAll(".screen").forEach(s => {
         s.classList.remove("active");
         s.style.display = "none";
     });
     targetScreen.style.display = "block";
-    // Trigger reflow for transition
     targetScreen.offsetHeight;
     targetScreen.classList.add("active");
 }
@@ -186,12 +181,10 @@ function switchScreen(targetScreen) {
    QUIZ CONTROLLER METHODS
    ========================================================================== */
 function startQuiz() {
-    // 1. Gather configs
     const countVal = questionCountSelect.value;
     questionCountLimit = countVal === "all" ? Infinity : parseInt(countVal, 10);
     quizMode = testModeSelect.value;
 
-    // 2. Filter questions based on category
     let pool = [];
     if (selectedCategory === "all") {
         pool = [...questions];
@@ -204,22 +197,18 @@ function startQuiz() {
         return;
     }
 
-    // 3. Shuffle pool and slice
     shuffleArray(pool);
     activeQuestions = pool.slice(0, Math.min(pool.length, questionCountLimit));
 
-    // 4. Reset state variables
     currentIndex = 0;
     userAnswers = {};
     flaggedQuestions.clear();
     elapsedTime = 0;
 
-    // 5. Build Quiz UI
     renderNavigationGrid();
     loadQuestion(0);
     switchScreen(quizScreen);
 
-    // 6. Start Timer
     if (timerInterval) clearInterval(timerInterval);
     startTime = Date.now();
     updateTimerUI();
@@ -248,6 +237,7 @@ function shuffleArray(array) {
 function loadQuestion(index) {
     currentIndex = index;
     const q = activeQuestions[index];
+    const type = q.type || "multiple_choice";
 
     // Progress Bar
     const totalQ = activeQuestions.length;
@@ -256,7 +246,7 @@ function loadQuestion(index) {
 
     // Question Details
     questionBadge.textContent = `Câu ${q.id.split("_")[1] || index + 1}`;
-    questionTextEl.textContent = q.question;
+    questionTextEl.innerHTML = escapeHtml(q.question).replace(/\n/g, "<br>");
 
     // Set Flag Button state
     if (flaggedQuestions.has(q.id)) {
@@ -267,33 +257,67 @@ function loadQuestion(index) {
         flagBtn.querySelector("i").className = "fa-regular fa-bookmark";
     }
 
-    // Render Options
+    // Render Options Container
     optionsContainer.innerHTML = "";
     const selectedAns = userAnswers[q.id];
 
-    Object.keys(q.options).forEach(key => {
-        const optionText = q.options[key];
-        
-        const optionItem = document.createElement("div");
-        optionItem.className = "option-item";
-        if (selectedAns === key) {
-            optionItem.classList.add("selected");
-        }
-        optionItem.dataset.option = key;
-
-        optionItem.innerHTML = `
-            <div class="option-marker">${key}</div>
-            <div class="option-text">${escapeHtml(optionText)}</div>
+    if (type === "essay") {
+        // Essay Layout (Textarea)
+        const userText = selectedAns || "";
+        optionsContainer.innerHTML = `
+            <div class="essay-container" style="width: 100%;">
+                <textarea id="essay-response" rows="8" placeholder="Nhập câu trả lời tự luận chi tiết của bạn vào đây..." style="width: 100%; font-family: inherit; font-size: 1rem; padding: 15px; border-radius: var(--border-radius-md); border: 1.5px solid var(--card-border); background: var(--card-bg); color: var(--text-main); outline: none; transition: border-color var(--transition-speed);">${escapeHtml(userText)}</textarea>
+            </div>
         `;
+        
+        const textarea = document.getElementById("essay-response");
+        
+        // Save automatically on typing
+        textarea.addEventListener("input", () => {
+            const val = textarea.value;
+            userAnswers[q.id] = val;
+            const navBtn = document.getElementById(`nav-btn-${currentIndex}`);
+            if (navBtn) {
+                if (val.trim() !== "") {
+                    navBtn.classList.add("answered");
+                } else {
+                    navBtn.classList.remove("answered");
+                }
+            }
+            if (quizMode === "practice") {
+                showPracticeFeedbackEssay(q, val.trim());
+            }
+        });
+    } else {
+        // Multiple Choice Layout
+        Object.keys(q.options).forEach(key => {
+            const optionText = q.options[key];
+            
+            const optionItem = document.createElement("div");
+            optionItem.className = "option-item";
+            if (selectedAns === key) {
+                optionItem.classList.add("selected");
+            }
+            optionItem.dataset.option = key;
 
-        optionItem.addEventListener("click", () => handleSelectOption(key));
-        optionsContainer.appendChild(optionItem);
-    });
+            optionItem.innerHTML = `
+                <div class="option-marker">${key}</div>
+                <div class="option-text">${escapeHtml(optionText)}</div>
+            `;
 
-    // In Practice Mode: Check if already answered, and show explanation/feedback
+            optionItem.addEventListener("click", () => handleSelectOption(key));
+            optionsContainer.appendChild(optionItem);
+        });
+    }
+
+    // Handle Practice Mode Feedback
     if (quizMode === "practice") {
-        if (selectedAns) {
-            showPracticeFeedback(q, selectedAns);
+        if (selectedAns && selectedAns.trim() !== "") {
+            if (type === "essay") {
+                showPracticeFeedbackEssay(q, selectedAns.trim());
+            } else {
+                showPracticeFeedback(q, selectedAns);
+            }
         } else {
             instantFeedbackEl.style.display = "none";
             explanationBoxInstant.style.display = "none";
@@ -326,15 +350,12 @@ function loadQuestion(index) {
 function handleSelectOption(optionKey) {
     const q = activeQuestions[currentIndex];
     
-    // In practice mode, lock the answer once submitted
     if (quizMode === "practice" && userAnswers[q.id]) {
         return;
     }
 
-    // Record answer
     userAnswers[q.id] = optionKey;
 
-    // Update choices UI
     document.querySelectorAll(".option-item").forEach(item => {
         if (item.dataset.option === optionKey) {
             item.classList.add("selected");
@@ -343,13 +364,11 @@ function handleSelectOption(optionKey) {
         }
     });
 
-    // Mark as answered in sidebar nav
     const navBtn = document.getElementById(`nav-btn-${currentIndex}`);
     if (navBtn) {
         navBtn.classList.add("answered");
     }
 
-    // Handle Practice Mode Feedback
     if (quizMode === "practice") {
         showPracticeFeedback(q, optionKey);
     }
@@ -367,17 +386,32 @@ function showPracticeFeedback(q, selectedAns) {
         feedbackStatusEl.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Câu trả lời chưa chính xác.`;
     }
 
-    // Fill Explanation Data
     correctAnsHeaderInstant.textContent = `Đáp án đúng là: ${q.correctAnswer}`;
     explanationTextInstant.innerHTML = q.explanation;
-    explanationBoxInstant.style.display = "none"; // Hide by default, let user toggle
+    explanationBoxInstant.style.display = "none"; 
     showExplainBtnInstant.innerHTML = `<i class="fa-solid fa-circle-info"></i> Xem giải thích đáp án`;
 
-    // Hook report error button
     const reportBtn = instantFeedbackEl.querySelector(".report-err-btn");
-    reportBtn.onclick = () => {
-        openReportModal(q.id);
-    };
+    reportBtn.onclick = () => openReportModal(q.id);
+}
+
+function showPracticeFeedbackEssay(q, val) {
+    if (!val || val.trim() === "") {
+        instantFeedbackEl.style.display = "none";
+        return;
+    }
+    instantFeedbackEl.style.display = "block";
+    
+    feedbackStatusEl.className = "feedback-status correct";
+    feedbackStatusEl.innerHTML = `<i class="fa-solid fa-pen-fancy"></i> Đã ghi nhận bài làm tự luận của bạn.`;
+
+    correctAnsHeaderInstant.textContent = `Lời giải mẫu & lí giải gợi ý:`;
+    explanationTextInstant.innerHTML = q.explanation;
+    explanationBoxInstant.style.display = "none"; 
+    showExplainBtnInstant.innerHTML = `<i class="fa-solid fa-circle-info"></i> Xem lời giải mẫu & lí giải`;
+
+    const reportBtn = instantFeedbackEl.querySelector(".report-err-btn");
+    reportBtn.onclick = () => openReportModal(q.id);
 }
 
 function toggleFlagQuestion() {
@@ -432,12 +466,12 @@ function renderNavigationGrid() {
    QUIZ SUBMIT & GRADING
    ========================================================================== */
 function confirmSubmitQuiz() {
-    const answeredCount = Object.keys(userAnswers).length;
+    const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k] && userAnswers[k].trim() !== "").length;
     const totalCount = activeQuestions.length;
     
     let msg = `Bạn chắc chắn muốn nộp bài thi chứ?`;
     if (answeredCount < totalCount) {
-        msg = `Bạn mới làm được ${answeredCount} / ${totalCount} câu hỏi. Bạn vẫn muốn nộp bài chứ?`;
+        msg = `Bạn mới làm được ${answeredCount} / ${totalCount} câu. Bạn vẫn muốn nộp bài chứ?`;
     }
 
     if (confirm(msg)) {
@@ -448,37 +482,61 @@ function confirmSubmitQuiz() {
 function submitQuiz() {
     if (timerInterval) clearInterval(timerInterval);
 
-    // Calculate score
-    let correctCount = 0;
+    let correctMcCount = 0;
+    let totalMcCount = 0;
+    let answeredEssayCount = 0;
+    let totalEssayCount = 0;
+
     activeQuestions.forEach(q => {
-        if (userAnswers[q.id] === q.correctAnswer) {
-            correctCount++;
+        const type = q.type || "multiple_choice";
+        const userAns = userAnswers[q.id];
+
+        if (type === "essay") {
+            totalEssayCount++;
+            if (userAns && userAns.trim() !== "") {
+                answeredEssayCount++;
+            }
+        } else {
+            totalMcCount++;
+            if (userAns === q.correctAnswer) {
+                correctMcCount++;
+            }
         }
     });
 
-    const totalCount = activeQuestions.length;
-    const incorrectCount = totalCount - correctCount;
-    const scorePercent = Math.round((correctCount / totalCount) * 100);
+    const incorrectMcCount = totalMcCount - correctMcCount;
+    
+    // Calculate percentage based on MC questions if present
+    let scorePercent = 0;
+    if (totalMcCount > 0) {
+        scorePercent = Math.round((correctMcCount / totalMcCount) * 100);
+    } else {
+        // If essay only, show completion percentage
+        scorePercent = totalEssayCount > 0 ? Math.round((answeredEssayCount / totalEssayCount) * 100) : 100;
+    }
 
     // Update Result UI
     scorePercentEl.textContent = `${scorePercent}%`;
-    scoreFractionEl.textContent = `${correctCount} / ${totalCount} câu đúng`;
     
-    // Format Time Taken
+    if (totalMcCount > 0 && totalEssayCount > 0) {
+        scoreFractionEl.textContent = `${correctMcCount}/${totalMcCount} trắc nghiệm | ${answeredEssayCount}/${totalEssayCount} tự luận`;
+    } else if (totalMcCount > 0) {
+        scoreFractionEl.textContent = `${correctMcCount} / ${totalMcCount} câu trắc nghiệm đúng`;
+    } else {
+        scoreFractionEl.textContent = `Đã hoàn thành ${answeredEssayCount} / ${totalEssayCount} câu tự luận`;
+    }
+    
     const mins = Math.floor(elapsedTime / 60);
     const secs = elapsedTime % 60;
     statTimeEl.textContent = `${mins} phút ${secs} giây`;
-    statCorrectEl.textContent = correctCount;
-    statIncorrectEl.textContent = incorrectCount;
+    statCorrectEl.textContent = correctMcCount;
+    statIncorrectEl.textContent = incorrectMcCount;
     
     let categoryName = selectedCategory;
     if (selectedCategory === "all") categoryName = "Đề thi tổng hợp";
     statCategoryEl.textContent = categoryName;
 
-    // Render detailed review
     renderReviewList("all");
-
-    // Switch screen to Results
     switchScreen(resultScreen);
 }
 
@@ -490,68 +548,112 @@ function renderReviewList(filter) {
 
     activeQuestions.forEach((q, idx) => {
         const userAns = userAnswers[q.id];
+        const type = q.type || "multiple_choice";
         const isCorrect = userAns === q.correctAnswer;
 
-        // Apply filters
-        if (filter === "correct" && !isCorrect) return;
-        if (filter === "incorrect" && isCorrect) return;
+        // Apply filters (for essay questions, they bypass correct/incorrect filters unless they are unanswered)
+        if (type !== "essay") {
+            if (filter === "correct" && !isCorrect) return;
+            if (filter === "incorrect" && isCorrect) return;
+        } else {
+            // Essay questions filter
+            const hasAnswer = userAns && userAns.trim() !== "";
+            if (filter === "correct" && !hasAnswer) return;
+            // Incorrect filter filters out answered essays, keeping only unanswered ones
+            if (filter === "incorrect" && hasAnswer) return;
+        }
 
         const reviewItem = document.createElement("div");
         reviewItem.className = "review-item";
 
         let statusHtml = "";
-        if (userAns === undefined) {
-            statusHtml = `<span class="result-status-tag incorrect"><i class="fa-solid fa-triangle-exclamation"></i> Chưa trả lời</span>`;
-        } else if (isCorrect) {
-            statusHtml = `<span class="result-status-tag correct"><i class="fa-solid fa-circle-check"></i> Trả lời đúng</span>`;
-        } else {
-            statusHtml = `<span class="result-status-tag incorrect"><i class="fa-solid fa-circle-xmark"></i> Trả lời sai</span>`;
-        }
+        let contentHtml = "";
 
-        let optionsHtml = "";
-        Object.keys(q.options).forEach(key => {
-            const optText = q.options[key];
-            let itemClass = "review-option-item";
-            
-            if (key === q.correctAnswer) {
-                itemClass += " correct"; // Mark correct choice in green
-            } else if (userAns === key && !isCorrect) {
-                itemClass += " wrong-choice"; // Mark user wrong choice in red
+        if (type === "essay") {
+            // Essay Review Template
+            const hasAnswer = userAns && userAns.trim() !== "";
+            if (!hasAnswer) {
+                statusHtml = `<span class="result-status-tag incorrect"><i class="fa-solid fa-triangle-exclamation"></i> Chưa làm tự luận</span>`;
+            } else {
+                statusHtml = `<span class="result-status-tag correct" style="color: var(--primary);"><i class="fa-solid fa-file-pen"></i> Tự luận (Tự đối chiếu)</span>`;
             }
 
-            optionsHtml += `
-                <div class="${itemClass}">
-                    <div class="review-option-marker">${key}</div>
-                    <div>${escapeHtml(optText)}</div>
+            contentHtml = `
+                <div class="review-options" style="grid-template-columns: 1fr; margin-bottom: 12px;">
+                    <div class="review-option-item" style="background: rgba(0, 0, 0, 0.03); border-color: var(--card-border); padding: 15px; display: block;">
+                        <strong style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px;">Bài làm của bạn:</strong>
+                        <div style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.5; font-style: italic;">${userAns ? escapeHtml(userAns) : "(Để trống)"}</div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary review-explain-toggle-btn" id="toggle-explain-btn-${q.id}">
+                    <i class="fa-solid fa-circle-info"></i> Xem bài mẫu & lời giải
+                </button>
+                <div class="review-explanation-content" id="review-explain-box-${q.id}" style="display: none;">
+                    <h4 style="color: var(--primary);">Lời giải gợi ý & Bài mẫu:</h4>
+                    <p style="white-space: pre-line; line-height: 1.6; font-size: 0.95rem;">${q.explanation}</p>
+                    <button class="btn btn-danger btn-sm" id="report-err-btn-${q.id}">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Báo lỗi câu hỏi
+                    </button>
                 </div>
             `;
-        });
+        } else {
+            // Multiple Choice Review Template
+            if (userAns === undefined) {
+                statusHtml = `<span class="result-status-tag incorrect"><i class="fa-solid fa-triangle-exclamation"></i> Chưa trả lời</span>`;
+            } else if (isCorrect) {
+                statusHtml = `<span class="result-status-tag correct"><i class="fa-solid fa-circle-check"></i> Trả lời đúng</span>`;
+            } else {
+                statusHtml = `<span class="result-status-tag incorrect"><i class="fa-solid fa-circle-xmark"></i> Trả lời sai</span>`;
+            }
+
+            let optionsHtml = "";
+            Object.keys(q.options).forEach(key => {
+                const optText = q.options[key];
+                let itemClass = "review-option-item";
+                
+                if (key === q.correctAnswer) {
+                    itemClass += " correct"; 
+                } else if (userAns === key && !isCorrect) {
+                    itemClass += " wrong-choice"; 
+                }
+
+                optionsHtml += `
+                    <div class="${itemClass}">
+                        <div class="review-option-marker">${key}</div>
+                        <div>${escapeHtml(optText)}</div>
+                    </div>
+                `;
+            });
+
+            contentHtml = `
+                <div class="review-options">
+                    ${optionsHtml}
+                </div>
+                <button class="btn btn-secondary review-explain-toggle-btn" id="toggle-explain-btn-${q.id}">
+                    <i class="fa-solid fa-circle-info"></i> Xem giải thích đáp án
+                </button>
+                <div class="review-explanation-content" id="review-explain-box-${q.id}" style="display: none;">
+                    <h4>Đáp án đúng: ${q.correctAnswer}</h4>
+                    <strong>Lí giải chi tiết:</strong>
+                    <p>${q.explanation}</p>
+                    <button class="btn btn-danger btn-sm" id="report-err-btn-${q.id}">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Báo lỗi câu hỏi
+                    </button>
+                </div>
+            `;
+        }
 
         reviewItem.innerHTML = `
             <div class="review-q-header">
                 <span class="review-q-badge">Câu ${idx + 1} (${q.category})</span>
                 ${statusHtml}
             </div>
-            <div class="review-q-text">${escapeHtml(q.question)}</div>
-            <div class="review-options">
-                ${optionsHtml}
-            </div>
-            <button class="btn btn-secondary review-explain-toggle-btn" id="toggle-explain-btn-${q.id}">
-                <i class="fa-solid fa-circle-info"></i> Xem giải thích đáp án
-            </button>
-            <div class="review-explanation-content" id="review-explain-box-${q.id}" style="display: none;">
-                <h4>Đáp án đúng: ${q.correctAnswer}</h4>
-                <strong>Lí giải chi tiết:</strong>
-                <p>${q.explanation}</p>
-                <button class="btn btn-danger btn-sm" id="report-err-btn-${q.id}">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Báo lỗi câu hỏi
-                </button>
-            </div>
+            <div class="review-q-text">${escapeHtml(q.question).replace(/\n/g, "<br>")}</div>
+            ${contentHtml}
         `;
 
         reviewListContainer.appendChild(reviewItem);
 
-        // Bind toggle explanation event
         const toggleBtn = reviewItem.querySelector(`#toggle-explain-btn-${q.id}`);
         const explainBox = reviewItem.querySelector(`#review-explain-box-${q.id}`);
         
@@ -565,7 +667,6 @@ function renderReviewList(filter) {
             }
         });
 
-        // Bind report error event
         const reportBtn = reviewItem.querySelector(`#report-err-btn-${q.id}`);
         reportBtn.addEventListener("click", () => {
             openReportModal(q.id);
@@ -597,13 +698,8 @@ function submitErrorReport() {
         return;
     }
 
-    // Simulated API request
     console.log(`[Error Report Submitted] Question ID: ${reportingQuestionId}, Type: ${errorType}, Content: ${content}`);
-    
-    // Show user success toast
     alert(`Cảm ơn bạn đã phản hồi lỗi câu hỏi ${reportingQuestionId}! Ban quản trị sẽ nhanh chóng kiểm tra và khắc phục lỗi này.`);
-    
-    // Close modal
     reportModal.style.display = "none";
 }
 
