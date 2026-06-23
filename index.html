@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Thi Tiếng Việt Lớp 6 Chất Lượng Cao</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>TV-CLC6</span>
+            </div>
+            <h1>LUYỆN THI TIẾNG VIỆT VÀO LỚP 6 CLC</h1>
+            <div class="theme-toggle" id="theme-toggle-btn">
+                <i class="fa-solid fa-moon"></i>
+            </div>
+        </header>
+
+        <!-- LOBBY SCREEN (MÀN HÌNH CHỌN ĐỀ) -->
+        <section id="lobby-screen" class="screen active">
+            <div class="lobby-card">
+                <h2><i class="fa-solid fa-list-check"></i> Chọn Cấu Hình Đề Thi</h2>
+                <p class="subtitle">Hệ thống tổng hợp câu hỏi từ 50 bộ đề thi thử vào trường THCS Chất Lượng Cao</p>
+                
+                <div class="form-group">
+                    <label><i class="fa-solid fa-tags"></i> Chọn Dạng Đề Thi (Chuyên Đề):</label>
+                    <div class="category-grid" id="category-selector">
+                        <div class="category-card active" data-category="all">
+                            <div class="cat-icon"><i class="fa-solid fa-cubes"></i></div>
+                            <div class="cat-info">
+                                <h3>Đề thi tổng hợp</h3>
+                                <p>Đề trắc nghiệm ngẫu nhiên từ tất cả các chuyên đề</p>
+                            </div>
+                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                        </div>
+                        <div class="category-card" data-category="Từ loại & Nghĩa của từ">
+                            <div class="cat-icon"><i class="fa-solid fa-spell-check"></i></div>
+                            <div class="cat-info">
+                                <h3>Từ loại & Nghĩa của từ</h3>
+                                <p>Danh, động, tính từ; Nghĩa gốc & chuyển; Đồng âm, nhiều nghĩa...</p>
+                            </div>
+                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                        </div>
+                        <div class="category-card" data-category="Ngữ pháp & Câu ghép">
+                            <div class="cat-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                            <div class="cat-info">
+                                <h3>Ngữ pháp & Câu ghép</h3>
+                                <p>Chủ/vị/trạng ngữ; Câu ghép; Liên kết câu; Quan hệ từ...</p>
+                            </div>
+                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                        </div>
+                        <div class="category-card" data-category="Cấu tạo từ (Từ ghép/Từ láy)">
+                            <div class="cat-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                            <div class="cat-info">
+                                <h3>Cấu tạo từ (Ghép/Láy)</h3>
+                                <p>Từ đơn, từ phức; Từ ghép phân loại/tổng hợp; Từ láy...</p>
+                            </div>
+                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                        </div>
+                        <div class="category-card" data-category="Đọc hiểu & Thành ngữ/Tục ngữ">
+                            <div class="cat-icon"><i class="fa-solid fa-book-open"></i></div>
+                            <div class="cat-info">
+                                <h3>Đọc hiểu & Thành ngữ</h3>
+                                <p>Đọc hiểu đoạn văn; Phân tích ca dao, tục ngữ, thành ngữ...</p>
+                            </div>
+                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="question-count"><i class="fa-solid fa-sliders"></i> Số Lượng Câu Hỏi:</label>
+                        <select id="question-count">
+                            <option value="10">10 câu hỏi (Nhanh)</option>
+                            <option value="20" selected>20 câu hỏi (Tiêu chuẩn)</option>
+                            <option value="30">30 câu hỏi (Thử thách)</option>
+                            <option value="all">Toàn bộ câu hỏi chuyên đề</option>
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label for="test-mode"><i class="fa-solid fa-gears"></i> Chế Độ Làm Bài:</label>
+                        <select id="test-mode">
+                            <option value="exam" selected>Thi thử (Có chấm điểm & Xem đáp án khi nộp bài)</option>
+                            <option value="practice">Luyện tập (Xem giải thích ngay sau mỗi câu trả lời)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="start-quiz-btn" class="btn btn-primary btn-large">
+                    <i class="fa-solid fa-play"></i> BẮT ĐẦU THI NGAY
+                </button>
+            </div>
+        </section>
+
+        <!-- QUIZ SCREEN (MÀN HÌNH LÀM BÀI) -->
+        <section id="quiz-screen" class="screen">
+            <div class="quiz-layout">
+                <!-- PANEL CHÍNH LÀM BÀI -->
+                <div class="quiz-main">
+                    <div class="quiz-status-bar">
+                        <div class="progress-container">
+                            <span class="progress-text" id="progress-text">Câu hỏi 1 / 20</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill" style="width: 5%;"></div>
+                            </div>
+                        </div>
+                        <div class="timer" id="quiz-timer">
+                            <i class="fa-regular fa-clock"></i> <span id="timer-text">00:00</span>
+                        </div>
+                    </div>
+
+                    <!-- CARD CÂU HỎI -->
+                    <div class="question-card">
+                        <div class="question-header">
+                            <span class="question-badge" id="question-badge">Câu 10</span>
+                            <div class="flag-question" id="flag-btn">
+                                <i class="fa-regular fa-bookmark"></i> <span>Đánh dấu review</span>
+                            </div>
+                        </div>
+                        
+                        <h3 class="question-text" id="question-text">Đang tải câu hỏi...</h3>
+                        
+                        <!-- CÁC PHƯƠNG ÁN ĐÁP ÁN -->
+                        <div class="options-container" id="options-container">
+                            <!-- Sẽ được điền động bằng JS -->
+                        </div>
+
+                        <!-- PHẢN HỒI NGAY (DÀNH CHO CHẾ ĐỘ LUYỆN TẬP) -->
+                        <div class="instant-feedback" id="instant-feedback" style="display: none;">
+                            <div class="feedback-status" id="feedback-status">
+                                <!-- Lời nhắn Đúng/Sai -->
+                            </div>
+                            <button id="show-explain-btn-instant" class="btn btn-secondary">
+                                <i class="fa-solid fa-circle-info"></i> Xem giải thích đáp án
+                            </button>
+                            <div class="explanation-box" id="explanation-box-instant" style="display: none;">
+                                <h4 id="correct-ans-header-instant">Đáp án A</h4>
+                                <strong>Lí giải chi tiết:</strong>
+                                <p id="explanation-text-instant">Lời giải...</p>
+                                <button class="btn btn-danger btn-sm report-err-btn">
+                                    <i class="fa-solid fa-triangle-exclamation"></i> Báo lỗi câu hỏi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NÚT ĐIỀU HƯỚNG BÊN DƯỚI -->
+                    <div class="navigation-controls">
+                        <button id="prev-btn" class="btn btn-secondary" disabled>
+                            <i class="fa-solid fa-chevron-left"></i> Câu trước
+                        </button>
+                        
+                        <div class="nav-center-actions">
+                            <button id="finish-btn-mid" class="btn btn-success" style="display: none;">
+                                <i class="fa-solid fa-flag-checkered"></i> Nộp bài thi
+                            </button>
+                        </div>
+
+                        <button id="next-btn" class="btn btn-primary">
+                            Câu sau <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SIDEBAR ĐIỀU HƯỚNG CÂU HỎI NHANH -->
+                <aside class="quiz-sidebar">
+                    <h3>BẢNG CÂU HỎI</h3>
+                    <div class="question-nav-grid" id="nav-grid">
+                        <!-- Các nút 1, 2, 3... được gen bằng JS -->
+                    </div>
+                    <div class="sidebar-footer">
+                        <div class="legend-item">
+                            <span class="legend-dot current"></span> <span>Đang xem</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot answered"></span> <span>Đã chọn</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot flagged"></span> <span>Đã đánh dấu</span>
+                        </div>
+                        <button id="submit-quiz-btn" class="btn btn-success w-100 mt-15">
+                            <i class="fa-solid fa-square-check"></i> NỘP BÀI THI
+                        </button>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- RESULT SCREEN (MÀN HÌNH KẾT QUẢ) -->
+        <section id="result-screen" class="screen">
+            <div class="result-container">
+                <div class="result-header-card">
+                    <h2>KẾT QUẢ BÀI THI</h2>
+                    <div class="result-summary-grid">
+                        <div class="score-circle">
+                            <div class="score-number" id="score-percent">85%</div>
+                            <div class="score-label" id="score-fraction">17 / 20 câu đúng</div>
+                        </div>
+                        <div class="stats-box">
+                            <div class="stat-item">
+                                <span class="stat-label"><i class="fa-regular fa-clock"></i> Thời gian làm bài:</span>
+                                <span class="stat-value" id="stat-time">12 phút 45 giây</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label"><i class="fa-solid fa-check"></i> Số câu đúng:</span>
+                                <span class="stat-value text-success" id="stat-correct">17</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label"><i class="fa-solid fa-xmark"></i> Số câu sai:</span>
+                                <span class="stat-value text-danger" id="stat-incorrect">3</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label"><i class="fa-solid fa-star"></i> Chuyên đề:</span>
+                                <span class="stat-value text-primary" id="stat-category">Đề thi tổng hợp</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button id="restart-btn" class="btn btn-primary">
+                            <i class="fa-solid fa-rotate-left"></i> Làm lại đề này
+                        </button>
+                        <button id="go-home-btn" class="btn btn-secondary">
+                            <i class="fa-solid fa-house"></i> Về trang chủ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- REVIEW ĐÁP ÁN CHI TIẾT -->
+                <div class="review-section">
+                    <div class="review-header">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Xem lại chi tiết đáp án</h3>
+                        <div class="filter-controls">
+                            <button class="filter-btn active" data-filter="all">Tất cả</button>
+                            <button class="filter-btn text-success" data-filter="correct">Câu đúng</button>
+                            <button class="filter-btn text-danger" data-filter="incorrect">Câu sai</button>
+                        </div>
+                    </div>
+
+                    <div class="review-list" id="review-list-container">
+                        <!-- Danh sách câu hỏi kèm lời giải chi tiết sẽ gen bằng JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL BÁO LỖI (GIẢ LẬP) -->
+    <div class="modal" id="report-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal-btn">&times;</span>
+            <h3><i class="fa-solid fa-triangle-exclamation text-danger"></i> Báo lỗi câu hỏi</h3>
+            <p id="report-q-id">Mã câu hỏi: TV_Q10</p>
+            <div class="form-group mt-15">
+                <label for="report-type">Loại lỗi:</label>
+                <select id="report-type">
+                    <option value="wrong-key">Sai đáp án chính thức</option>
+                    <option value="typo">Lỗi chính tả, lỗi font chữ</option>
+                    <option value="bad-explain">Lời giải thích chưa rõ ràng, chưa thuyết phục</option>
+                    <option value="other">Lỗi khác</option>
+                </select>
+            </div>
+            <div class="form-group mt-15">
+                <label for="report-content">Chi tiết lỗi của bạn:</label>
+                <textarea id="report-content" rows="4" placeholder="Mô tả chi tiết lỗi câu hỏi để chúng tôi sửa chữa..."></textarea>
+            </div>
+            <button id="submit-report-btn" class="btn btn-danger w-100 mt-15">GỬI BÁO CÁO LỖI</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="questions.js"></script>
+    <script src="quiz.js"></script>
+</body>
+</html>
