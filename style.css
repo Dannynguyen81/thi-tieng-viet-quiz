@@ -1306,142 +1306,217 @@ body.dark-theme .source-badge {
     font-size: 0.85rem;
 }
 
-/* Essay Quiz Layout */
-.essay-quiz-header {
+/* Essay Quiz Layout - Single Column (Mocktest Mockup-like style) */
+.essay-exam-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px 90px;
+}
+
+.essay-secbar {
+    background: #1F3864;
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+    padding: 14px 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-    border-bottom: 1.5px solid var(--card-border);
+    gap: 16px;
     flex-wrap: wrap;
-    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-bottom: 3px solid #152643;
 }
-.essay-title-area h2 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
-    color: var(--text-main);
-    margin-bottom: 5px;
-}
-.essay-header-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.essay-quiz-layout {
-    display: flex;
-    gap: 20px;
-    height: calc(100vh - 180px);
-    min-height: 500px;
-}
-.essay-passage-panel {
-    flex: 4.5;
+
+.essay-secbar-info {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    gap: 4px;
+    flex: 1;
 }
-.essay-questions-panel {
-    flex: 5.5;
-    overflow-y: auto;
-    height: 100%;
-    padding-right: 5px;
-}
-.panel-card {
-    background: var(--card-bg);
-    border: 1.5px solid var(--card-border);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--card-shadow);
-    padding: 25px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-.panel-card h3 {
+
+.essay-secbar .t {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.25rem;
-    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.essay-secbar .s {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    color: #e2e8f0;
+}
+
+.essay-secbar .timer {
+    margin-left: auto;
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--text-main);
-    border-bottom: 1px solid var(--card-border);
-    padding-bottom: 10px;
 }
-.passage-content {
-    line-height: 1.7;
+
+.essay-secbar .tclock {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: #0d2547;
+    padding: 6px 14px;
+    border-radius: 8px;
+    min-width: 80px;
+    text-align: center;
+    color: #ffffff;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.essay-secbar .tbtn {
+    background: #E6005A;
+    color: #ffffff;
+    border: 0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(230,0,90,0.3);
+}
+
+.essay-secbar .tbtn:hover {
+    background: #c2004c;
+    transform: translateY(-1px);
+}
+
+.essay-secbar .tbtn:active {
+    transform: translateY(0);
+}
+
+.essay-secbody {
+    background: #ffffff;
+    border: 1px solid #e3e7ee;
+    border-top: 0;
+    border-radius: 0 0 12px 12px;
+    padding: 24px 30px;
+    margin-bottom: 25px;
+    box-shadow: var(--card-shadow);
+}
+
+.essay-sub {
+    color: #1F5FB0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    margin: 25px 0 15px;
+    font-size: 1.1rem;
+    border-left: 4px solid #1F5FB0;
+    padding-left: 10px;
+    letter-spacing: 0.5px;
+}
+
+.essay-sub:first-child {
+    margin-top: 5px;
+}
+
+.essay-passage-box {
     font-size: 1.05rem;
-    color: var(--text-main);
+    margin: 15px 0;
+    background: #fbfbf6;
+    border: 1px solid #e2e8f0;
+    padding: 16px 20px;
+    border-radius: 10px;
+    color: #1e293b;
+    line-height: 1.7;
     white-space: pre-wrap;
 }
-.passage-content.scrollable {
-    overflow-y: auto;
-    flex: 1;
-    padding-right: 5px;
-}
-.passage-content strong {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.25rem;
-    display: block;
-    margin-bottom: 10px;
+
+.essay-poem-box {
+    background: #fbf7ef;
+    border: 1.5px solid #ecd9b0;
+    border-radius: 12px;
+    padding: 24px 30px;
+    margin: 15px 0;
     text-align: center;
-}
-.passage-content em {
-    display: block;
-    text-align: center;
-    margin-bottom: 20px;
-    color: var(--text-muted);
+    color: #1e293b;
+    line-height: 1.8;
 }
 
-.essay-q-card {
-    background: var(--card-bg);
-    border: 1.5px solid var(--card-border);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--card-shadow);
-    padding: 20px;
-    margin-bottom: 20px;
+.essay-poem-box .tt {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #1F3864;
+    font-size: 1.25rem;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
 }
-.essay-q-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+
+.essay-poem-box .by {
+    font-style: italic;
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
 }
-.essay-q-badge {
-    font-weight: 600;
-    color: var(--primary);
-    font-size: 0.95rem;
-    background: var(--primary-light);
-    padding: 4px 8px;
-    border-radius: 6px;
-}
-.essay-q-score {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-.essay-q-text {
+
+.essay-poem-box .ln {
+    font-style: italic;
     font-size: 1.05rem;
-    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.essay-q-wrapper {
+    margin: 25px 0;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+}
+
+.essay-q-wrapper:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.essay-q-title {
+    margin: 18px 0 10px;
+    font-weight: 700;
+    font-size: 1.05rem;
     color: var(--text-main);
     line-height: 1.5;
-    margin-bottom: 15px;
-}
-.essay-q-card textarea {
-    min-height: 120px;
 }
 
-/* Essay Result */
-.essay-result-container {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+textarea.essay-textarea-f {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    background: #ffffff;
+    color: #1e293b;
+    line-height: 1.6;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
 }
+
+textarea.essay-textarea-f:focus {
+    border-color: #1F3864;
+    box-shadow: 0 0 0 3px rgba(31,56,100,0.15);
+}
+
+/* Essay Result & Grading Layout */
+.essay-result-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px 90px;
+}
+
 .essay-result-header-card {
     background: var(--card-bg);
-    border: 1.5px solid var(--card-border);
+    border: 1px solid var(--card-border);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--card-shadow);
     padding: 30px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    margin-bottom: 25px;
 }
+
 .essay-result-header-card h2 {
     font-family: 'Outfit', sans-serif;
     font-size: 1.8rem;
@@ -1451,6 +1526,7 @@ body.dark-theme .source-badge {
     align-items: center;
     gap: 10px;
 }
+
 .essay-score-summary {
     display: flex;
     gap: 25px;
@@ -1458,6 +1534,7 @@ body.dark-theme .source-badge {
     align-items: center;
     flex-wrap: wrap;
 }
+
 .score-display-large {
     background: var(--primary-light);
     border: 2px solid var(--primary);
@@ -1469,6 +1546,7 @@ body.dark-theme .source-badge {
     justify-content: center;
     min-width: 150px;
 }
+
 .score-display-large .score-val {
     font-family: 'Outfit', sans-serif;
     font-size: 3rem;
@@ -1476,20 +1554,23 @@ body.dark-theme .source-badge {
     color: var(--primary);
     line-height: 1;
 }
+
 .score-display-large .score-max {
     font-size: 0.9rem;
     color: var(--text-muted);
     margin-top: 5px;
 }
+
 .teacher-feedback-card {
     flex: 1;
     background: var(--card-bg);
-    border: 1.5px solid var(--card-border);
+    border: 1px solid var(--card-border);
     border-radius: var(--border-radius-lg);
     padding: 20px;
     min-width: 250px;
     border-left: 5px solid var(--primary);
 }
+
 .teacher-feedback-card h4 {
     font-family: 'Outfit', sans-serif;
     color: var(--primary);
@@ -1499,6 +1580,7 @@ body.dark-theme .source-badge {
     align-items: center;
     gap: 8px;
 }
+
 .teacher-feedback-card p {
     font-size: 0.95rem;
     line-height: 1.6;
@@ -1506,43 +1588,36 @@ body.dark-theme .source-badge {
     font-style: italic;
 }
 
-/* Essay Grading Layout */
 .essay-grading-layout {
     display: flex;
-    gap: 20px;
-    height: calc(100vh - 180px);
-    min-height: 500px;
+    flex-direction: column;
+    gap: 25px;
 }
-.essay-passage-panel-result {
-    flex: 4;
-    height: 100%;
-}
-.essay-grading-panel {
-    flex: 6;
-    overflow-y: auto;
-    height: 100%;
-    padding-right: 5px;
-}
+
 .essay-grade-card {
     background: var(--card-bg);
-    border: 1.5px solid var(--card-border);
+    border: 1px solid var(--card-border);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--card-shadow);
     padding: 25px;
-    margin-bottom: 25px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
+
 .compare-grid {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin: 15px 0;
 }
+
 .compare-box {
     border-radius: var(--border-radius-md);
     padding: 15px;
     font-size: 0.95rem;
     line-height: 1.6;
 }
+
 .compare-box h5 {
     font-family: 'Outfit', sans-serif;
     font-size: 0.9rem;
@@ -1550,21 +1625,25 @@ body.dark-theme .source-badge {
     letter-spacing: 0.5px;
     margin-bottom: 8px;
 }
+
 .compare-box.student {
     background: rgba(0, 0, 0, 0.02);
     border: 1px solid var(--card-border);
     color: var(--text-main);
     white-space: pre-wrap;
 }
+
 body.dark-theme .compare-box.student {
     background: rgba(255, 255, 255, 0.02);
 }
+
 .compare-box.teacher {
     background: var(--success-light);
     border: 1px solid var(--success);
     color: var(--text-main);
     white-space: pre-wrap;
 }
+
 .compare-box.rubric {
     background: var(--warning-light);
     border: 1px dashed var(--warning);
@@ -1572,7 +1651,6 @@ body.dark-theme .compare-box.student {
     white-space: pre-wrap;
 }
 
-/* Slider Controls */
 .grading-slider-container {
     background: var(--primary-light);
     padding: 15px;
@@ -1583,18 +1661,21 @@ body.dark-theme .compare-box.student {
     gap: 15px;
     margin-top: 15px;
 }
+
 .slider-label {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--primary);
     min-width: 130px;
 }
+
 .slider-input-group {
     flex: 1;
     display: flex;
     align-items: center;
     gap: 12px;
 }
+
 .slider-input-group input[type="range"] {
     flex: 1;
     height: 6px;
@@ -1604,6 +1685,7 @@ body.dark-theme .compare-box.student {
     cursor: pointer;
     accent-color: var(--primary);
 }
+
 .slider-score-badge {
     background: var(--primary);
     color: var(--text-white);
@@ -1615,22 +1697,55 @@ body.dark-theme .compare-box.student {
     text-align: center;
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .essay-quiz-layout, .essay-grading-layout {
-        flex-direction: column;
-        height: auto;
-    }
-    .essay-passage-panel, .essay-questions-panel, .essay-passage-panel-result, .essay-grading-panel {
-        flex: none;
-        width: 100%;
-        height: auto;
-    }
-    .essay-passage-panel .panel-card, .essay-passage-panel-result .panel-card {
-        max-height: 350px;
-    }
-    .passage-content.scrollable {
-        max-height: 300px;
-    }
+/* Dark Theme Overrides */
+body.dark-theme .essay-secbar {
+    background: #111a2e;
+    border-color: #1e293b;
+}
+
+body.dark-theme .essay-secbar .tclock {
+    background: #090d16;
+}
+
+body.dark-theme .essay-secbody {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--text-main);
+}
+
+body.dark-theme .essay-sub {
+    color: #60a5fa;
+    border-left-color: #60a5fa;
+}
+
+body.dark-theme .essay-passage-box {
+    background: rgba(15, 23, 42, 0.4);
+    border-color: var(--card-border);
+    color: var(--text-main);
+}
+
+body.dark-theme .essay-poem-box {
+    background: rgba(43, 31, 23, 0.3);
+    border-color: #4a3e2c;
+    color: var(--text-main);
+}
+
+body.dark-theme .essay-poem-box .tt {
+    color: #ebd8c7;
+}
+
+body.dark-theme .essay-poem-box .by {
+    color: #94a3b8;
+}
+
+body.dark-theme textarea.essay-textarea-f {
+    background: rgba(15, 23, 42, 0.4);
+    border-color: var(--card-border);
+    color: var(--text-main);
+}
+
+body.dark-theme textarea.essay-textarea-f:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
 }
 

@@ -290,37 +290,21 @@
 
         <!-- ESSAY QUIZ SCREEN (MÀN HÌNH LÀM BÀI TỰ LUẬN) -->
         <section id="essay-quiz-screen" class="screen" style="display: none;">
-            <div class="essay-quiz-header">
-                <div class="essay-title-area">
-                    <h2 id="essay-exam-title">Đề Khảo sát 2024 - Bên suối, bịt tai, nghe gió</h2>
-                    <span id="essay-exam-source" class="source-badge">Kỳ khảo sát chính thức vào lớp 6 TP.HCM năm 2024 (Thủ Đức)</span>
-                </div>
-                <div class="essay-header-actions">
-                    <div class="timer" id="essay-timer">
-                        <i class="fa-regular fa-clock"></i> <span id="essay-timer-text">00:00</span>
+            <div class="essay-exam-container">
+                <!-- Section Header Bar (secbar) -->
+                <div class="essay-secbar">
+                    <div class="essay-secbar-info">
+                        <div class="t" id="essay-exam-title">BÀI IV · ĐỌC HIỂU & LÀM VĂN</div>
+                        <div class="s" id="essay-exam-source">Đọc hiểu 5,0đ · Làm văn 10,0đ</div>
                     </div>
-                    <button id="essay-submit-btn" class="btn btn-success">
-                        <i class="fa-solid fa-check-double"></i> NỘP BÀI THI
-                    </button>
-                </div>
-            </div>
-            
-            <div class="essay-quiz-layout">
-                <!-- PANEL TRÁI: NGỮ LIỆU ĐỌC HIỂU -->
-                <div class="essay-passage-panel">
-                    <div class="panel-card">
-                        <h3><i class="fa-solid fa-book-open"></i> Văn Bản Đọc Hiểu</h3>
-                        <div class="passage-content scrollable" id="essay-passage-content">
-                            <!-- Văn bản đọc hiểu điền bằng JS -->
-                        </div>
+                    <div class="timer">
+                        <span class="tclock" id="essay-timer-text">45:00</span>
+                        <button class="tbtn" id="essay-submit-btn">Nộp bài</button>
                     </div>
                 </div>
-                
-                <!-- PANEL PHẢI: BÀI LÀM TỰ LUẬN -->
-                <div class="essay-questions-panel">
-                    <div id="essay-questions-container">
-                        <!-- Danh sách câu hỏi kèm textarea điền bằng JS -->
-                    </div>
+                <!-- Section Body (secbody) -->
+                <div class="essay-secbody" id="essay-secbody-content">
+                    <!-- Sẽ được điền động bằng JS -->
                 </div>
             </div>
         </section>
@@ -353,23 +337,8 @@
                     </div>
                 </div>
                 
-                <div class="essay-grading-layout">
-                    <!-- PANEL TRÁI: NGỮ LIỆU ĐỌC HIỂU -->
-                    <div class="essay-passage-panel-result">
-                        <div class="panel-card">
-                            <h3><i class="fa-solid fa-book-open"></i> Văn Bản Đọc Hiểu</h3>
-                            <div class="passage-content scrollable" id="essay-result-passage-content">
-                                <!-- Điền bằng JS -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- PANEL PHẢI: SO SÁNH SIDE-BY-SIDE & TỰ CHẤM ĐIỂM -->
-                    <div class="essay-grading-panel">
-                        <div id="essay-grading-container">
-                            <!-- Các câu hỏi kèm bài làm, đáp án gợi ý và thanh trượt slider chấm điểm điền bằng JS -->
-                        </div>
-                    </div>
+                <div class="essay-grading-layout" id="essay-grading-layout-content">
+                    <!-- Điền động bằng JS: Hộp ngữ liệu ở trên và danh sách câu so sánh chấm điểm ở dưới -->
                 </div>
             </div>
         </section>

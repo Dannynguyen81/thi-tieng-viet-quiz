@@ -92,16 +92,12 @@ const essayExamTitle = document.getElementById("essay-exam-title");
 const essayExamSource = document.getElementById("essay-exam-source");
 const essayTimerText = document.getElementById("essay-timer-text");
 const essaySubmitBtn = document.getElementById("essay-submit-btn");
-const essayPassageContent = document.getElementById("essay-passage-content");
-const essayQuestionsContainer = document.getElementById("essay-questions-container");
 
 const essayResultScreen = document.getElementById("essay-result-screen");
 const essayTotalScore = document.getElementById("essay-total-score");
 const essayTeacherComment = document.getElementById("essay-teacher-comment");
 const essayRestartBtn = document.getElementById("essay-restart-btn");
 const essayGoHomeBtn = document.getElementById("essay-go-home-btn");
-const essayResultPassageContent = document.getElementById("essay-result-passage-content");
-const essayGradingContainer = document.getElementById("essay-grading-container");
 
 /* ==========================================================================
    INITIALIZATION & THEME MANAGER
@@ -827,6 +823,55 @@ function renderEssayExamsList() {
     });
 }
 
+function isPoemExam(examId) {
+    const poemIds = ["RW_EX1", "RW_EX3", "RW_EX4", "RW_EX5", "RW_EX7", "RW_EX9", "RW_EX10"];
+    return poemIds.includes(examId);
+}
+
+function formatPassageHtml(exam) {
+    if (isPoemExam(exam.id)) {
+        const titleMatch = exam.passage.match(/<strong>(.*?)<\/strong>/);
+        const authorMatch = exam.passage.match(/<em>(.*?)<\/em>/);
+        const title = titleMatch ? titleMatch[1] : exam.title;
+        const author = authorMatch ? authorMatch[1] : "";
+        
+        let cleanText = exam.passage.replace(/<strong>.*?<\/strong>/, "").replace(/<em>.*?<\/em>/, "").trim();
+        const rawLines = cleanText.split("\n");
+        
+        let linesHtml = "";
+        rawLines.forEach(line => {
+            const trimmed = line.trim();
+            if (trimmed === "") {
+                linesHtml += `<div class="ln">&nbsp;</div>`;
+            } else {
+                linesHtml += `<div class="ln">${trimmed}</div>`;
+            }
+        });
+        
+        return `
+            <div class="essay-poem-box">
+                <div class="tt">${title}</div>
+                <div class="by">${author ? `(Tác giả: ${author})` : ""}</div>
+                ${linesHtml}
+            </div>
+        `;
+    } else {
+        const titleMatch = exam.passage.match(/<strong>(.*?)<\/strong>/);
+        let cleanText = exam.passage;
+        if (titleMatch) {
+            cleanText = exam.passage.replace(/<strong>.*?<\/strong>/, "").trim();
+        }
+        const title = titleMatch ? titleMatch[1] : exam.title;
+        
+        return `
+            <div class="essay-passage-box">
+                <strong style="display:block; text-align:center; font-size:1.2rem; margin-bottom:12px; font-family:'Outfit', sans-serif;">${title}</strong>
+                <div>${cleanText.replace(/\n/g, "<br>")}</div>
+            </div>
+        `;
+    }
+}
+
 function startEssayExam(examId) {
     const exam = readingWritingExams.find(e => e.id === examId);
     if (!exam) return;
@@ -836,27 +881,71 @@ function startEssayExam(examId) {
     essayScores = {};
     essayElapsedTime = 0;
     
+    // Calculate docHieu and lamVan scores
+    let docHieuScore = 0;
+    let lamVanScore = 0;
+    exam.questions.forEach((q, idx) => {
+        if (idx === exam.questions.length - 1) {
+            lamVanScore += q.maxScore;
+        } else {
+            docHieuScore += q.maxScore;
+        }
+    });
+
+    const docHieuStr = docHieuScore.toFixed(1).replace(".", ",");
+    const lamVanStr = lamVanScore.toFixed(1).replace(".", ",");
+    
     // Set titles
     essayExamTitle.textContent = exam.title;
-    essayExamSource.textContent = exam.source;
+    essayExamSource.textContent = `Đọc hiểu ${docHieuStr}đ · Làm văn ${lamVanStr}đ · ${exam.source}`;
     
-    // Set passage content
-    essayPassageContent.innerHTML = exam.passage;
+    // Build vertical flow in container
+    const contentContainer = document.getElementById("essay-secbody-content");
+    contentContainer.innerHTML = "";
     
-    // Render questions
-    essayQuestionsContainer.innerHTML = "";
+    // 1. Subheading Đọc hiểu
+    const sub1 = document.createElement("div");
+    sub1.className = "essay-sub";
+    sub1.innerHTML = `1. ĐỌC HIỂU (${docHieuStr}đ)`;
+    contentContainer.appendChild(sub1);
+    
+    // 2. Passage/Poem box
+    const passageBox = document.createElement("div");
+    passageBox.innerHTML = formatPassageHtml(exam);
+    contentContainer.appendChild(passageBox);
+    
+    // 3. Questions
     exam.questions.forEach((q, idx) => {
-        const qCard = document.createElement("div");
-        qCard.className = "essay-q-card";
-        qCard.innerHTML = `
-            <div class="essay-q-card-header">
-                <span class="essay-q-badge">${q.label || `Câu ${idx + 1}`}</span>
-                <span class="essay-q-score">Điểm tối đa: ${q.maxScore}đ</span>
-            </div>
-            <div class="essay-q-text">${q.text}</div>
-            <textarea id="essay-ans-${q.id}" placeholder="Nhập bài làm của em tại đây..." rows="6"></textarea>
-        `;
-        essayQuestionsContainer.appendChild(qCard);
+        if (idx === exam.questions.length - 1) {
+            // Subheading Làm văn
+            const sub2 = document.createElement("div");
+            sub2.className = "essay-sub";
+            sub2.innerHTML = `2. LÀM VĂN (${lamVanStr}đ)`;
+            contentContainer.appendChild(sub2);
+            
+            // Writing wrapper
+            const qWrap = document.createElement("div");
+            qWrap.className = "essay-q-wrapper";
+            qWrap.innerHTML = `
+                <div class="essay-passage-box">${q.text}</div>
+                <div class="essay-q-title">Bài viết của em:</div>
+                <textarea class="essay-textarea-f" id="essay-ans-${q.id}" placeholder="Nhập bài viết tự luận của em tại đây..." rows="12"></textarea>
+            `;
+            contentContainer.appendChild(qWrap);
+        } else {
+            // Reading question wrapper
+            const qWrap = document.createElement("div");
+            qWrap.className = "essay-q-wrapper";
+            
+            const qLabel = q.label || `Câu ${idx + 1}`;
+            const maxScoreStr = q.maxScore.toFixed(1).replace(".", ",");
+            
+            qWrap.innerHTML = `
+                <div class="essay-q-title">${qLabel}. (${maxScoreStr}đ) ${q.text}</div>
+                <textarea class="essay-textarea-f" id="essay-ans-${q.id}" placeholder="Nhập câu trả lời của em tại đây..." rows="4"></textarea>
+            `;
+            contentContainer.appendChild(qWrap);
+        }
     });
     
     // Start timer
@@ -893,24 +982,35 @@ function confirmSubmitEssay() {
 }
 
 function showEssayResults() {
-    essayResultPassageContent.innerHTML = activeEssayExam.passage;
-    renderEssayGradingQuestions();
+    renderEssayGradingLayout();
     updateEssayScoreDisplay();
     switchScreen(essayResultScreen);
 }
 
-function renderEssayGradingQuestions() {
-    essayGradingContainer.innerHTML = "";
+function renderEssayGradingLayout() {
+    const layoutContainer = document.getElementById("essay-grading-layout-content");
+    layoutContainer.innerHTML = "";
+    
+    // 1. Passage/Poem Box at the top
+    const passageBox = document.createElement("div");
+    passageBox.innerHTML = formatPassageHtml(activeEssayExam);
+    layoutContainer.appendChild(passageBox);
+    
+    // 2. Grading container for all questions
+    const gradingContainer = document.createElement("div");
+    gradingContainer.className = "essay-grading-panel";
+    
     activeEssayExam.questions.forEach((q, idx) => {
         const gradeCard = document.createElement("div");
         gradeCard.className = "essay-grade-card";
         
-        const studentAns = essayUserAnswers[q.id] || "<em>(Em không trả lời câu hỏi này)</em>";
+        const studentAns = essayUserAnswers[q.id] || "(Em không trả lời câu hỏi này)";
+        const maxScoreStr = q.maxScore.toFixed(1).replace(".", ",");
         
         gradeCard.innerHTML = `
             <div class="essay-q-card-header">
                 <span class="essay-q-badge">${q.label || `Câu ${idx + 1}`}</span>
-                <span class="essay-q-score">Điểm tối đa: ${q.maxScore}đ</span>
+                <span class="essay-q-score">Điểm tối đa: ${maxScoreStr}đ</span>
             </div>
             <div class="essay-q-text" style="margin-bottom:15px;">${q.text}</div>
             
@@ -933,12 +1033,12 @@ function renderEssayGradingQuestions() {
                 <span class="slider-label"><i class="fa-solid fa-star-half-stroke"></i> Cho điểm câu này:</span>
                 <div class="slider-input-group">
                     <input type="range" id="grade-slider-${q.id}" min="0" max="${q.maxScore}" step="0.25" value="0">
-                    <span class="slider-score-badge" id="grade-badge-${q.id}">0 / ${q.maxScore}</span>
+                    <span class="slider-score-badge" id="grade-badge-${q.id}">0.00 / ${q.maxScore}</span>
                 </div>
             </div>
         `;
         
-        essayGradingContainer.appendChild(gradeCard);
+        gradingContainer.appendChild(gradeCard);
         
         // Add event listener to slider
         const slider = gradeCard.querySelector(`#grade-slider-${q.id}`);
@@ -950,6 +1050,8 @@ function renderEssayGradingQuestions() {
             updateEssayScoreDisplay();
         });
     });
+    
+    layoutContainer.appendChild(gradingContainer);
 }
 
 function updateEssayScoreDisplay() {
