@@ -31,85 +31,108 @@
         <!-- LOBBY SCREEN (MÀN HÌNH CHỌN ĐỀ) -->
         <section id="lobby-screen" class="screen active">
             <div class="lobby-card">
-                <h2><i class="fa-solid fa-list-check"></i> Chọn Cấu Hình Đề Thi</h2>
-                <p class="subtitle">Hệ thống tổng hợp câu hỏi từ 50 bộ đề thi thử vào trường THCS Chất Lượng Cao</p>
+                <h2><i class="fa-solid fa-graduation-cap"></i> Hệ Thống Ôn Thi Tiếng Việt 6 CLC</h2>
+                <p class="subtitle">Luyện tập trắc nghiệm chuyên đề và làm đề thi thử tự luận chất lượng cao</p>
                 
-                <div class="form-group">
-                    <label><i class="fa-solid fa-tags"></i> Chọn Dạng Đề Thi (Chuyên Đề):</label>
-                    <div class="category-grid" id="category-selector">
-                        <div class="category-card active" data-category="all">
-                            <div class="cat-icon"><i class="fa-solid fa-cubes"></i></div>
-                            <div class="cat-info">
-                                <h3>Đề thi tổng hợp</h3>
-                                <p>Đề trắc nghiệm ngẫu nhiên từ tất cả các chuyên đề</p>
-                            </div>
-                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
-                        </div>
-                        <div class="category-card" data-category="Từ loại & Nghĩa của từ">
-                            <div class="cat-icon"><i class="fa-solid fa-spell-check"></i></div>
-                            <div class="cat-info">
-                                <h3>Từ loại & Nghĩa của từ</h3>
-                                <p>Danh, động, tính từ; Nghĩa gốc & chuyển; Đồng âm, nhiều nghĩa...</p>
-                            </div>
-                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
-                        </div>
-                        <div class="category-card" data-category="Ngữ pháp & Câu ghép">
-                            <div class="cat-icon"><i class="fa-solid fa-diagram-project"></i></div>
-                            <div class="cat-info">
-                                <h3>Ngữ pháp & Câu ghép</h3>
-                                <p>Chủ/vị/trạng ngữ; Câu ghép; Liên kết câu; Quan hệ từ...</p>
-                            </div>
-                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
-                        </div>
-                        <div class="category-card" data-category="Cấu tạo từ (Từ ghép/Từ láy)">
-                            <div class="cat-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
-                            <div class="cat-info">
-                                <h3>Cấu tạo từ (Ghép/Láy)</h3>
-                                <p>Từ đơn, từ phức; Từ ghép phân loại/tổng hợp; Từ láy...</p>
-                            </div>
-                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
-                        </div>
-                        <div class="category-card" data-category="Đọc hiểu & Thành ngữ/Tục ngữ">
-                            <div class="cat-icon"><i class="fa-solid fa-book-open"></i></div>
-                            <div class="cat-info">
-                                <h3>Đọc hiểu & Thành ngữ</h3>
-                                <p>Đọc hiểu đoạn văn; Phân tích ca dao, tục ngữ, thành ngữ...</p>
-                            </div>
-                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
-                        </div>
-                        <div class="category-card" data-category="Tự luận cảm thụ & Ngữ pháp">
-                            <div class="cat-icon"><i class="fa-solid fa-pen-nib"></i></div>
-                            <div class="cat-info">
-                                <h3>Tự luận cảm thụ & Ngữ pháp</h3>
-                                <p>Xác định chủ/vị/trạng ngữ; Phân tích thơ; Đặt câu; Viết đoạn văn...</p>
-                            </div>
-                            <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
-                        </div>
-                    </div>
+                <!-- Tab chuyển đổi chế độ thi -->
+                <div class="lobby-tabs">
+                    <button class="tab-btn active" id="tab-quiz-mode">
+                        <i class="fa-solid fa-list-check"></i> Trắc Nghiệm & Tự Luận Ngắn
+                    </button>
+                    <button class="tab-btn" id="tab-essay-mode">
+                        <i class="fa-solid fa-pen-nib"></i> Đọc Hiểu & Làm Văn (Tự Luận)
+                    </button>
                 </div>
 
-                <div class="row">
-                    <div class="form-group col">
-                        <label for="question-count"><i class="fa-solid fa-sliders"></i> Số Lượng Câu Hỏi:</label>
-                        <select id="question-count">
-                            <option value="10">10 câu hỏi (Nhanh)</option>
-                            <option value="20" selected>20 câu hỏi (Tiêu chuẩn)</option>
-                            <option value="30">30 câu hỏi (Thử thách)</option>
-                            <option value="all">Toàn bộ câu hỏi chuyên đề</option>
-                        </select>
+                <!-- Cấu hình Trắc nghiệm & Tự luận ngắn -->
+                <div id="quiz-lobby-config" class="lobby-sub-section active">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-tags"></i> Chọn Dạng Đề Thi (Chuyên Đề):</label>
+                        <div class="category-grid" id="category-selector">
+                            <div class="category-card active" data-category="all">
+                                <div class="cat-icon"><i class="fa-solid fa-cubes"></i></div>
+                                <div class="cat-info">
+                                    <h3>Đề thi tổng hợp</h3>
+                                    <p>Đề trắc nghiệm ngẫu nhiên từ tất cả các chuyên đề</p>
+                                </div>
+                                <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            </div>
+                            <div class="category-card" data-category="Từ loại & Nghĩa của từ">
+                                <div class="cat-icon"><i class="fa-solid fa-spell-check"></i></div>
+                                <div class="cat-info">
+                                    <h3>Từ loại & Nghĩa của từ</h3>
+                                    <p>Danh, động, tính từ; Nghĩa gốc & chuyển; Đồng âm, nhiều nghĩa...</p>
+                                </div>
+                                <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            </div>
+                            <div class="category-card" data-category="Ngữ pháp & Câu ghép">
+                                <div class="cat-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                                <div class="cat-info">
+                                    <h3>Ngữ pháp & Câu ghép</h3>
+                                    <p>Chủ/vị/trạng ngữ; Câu ghép; Liên kết câu; Quan hệ từ...</p>
+                                </div>
+                                <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            </div>
+                            <div class="category-card" data-category="Cấu tạo từ (Từ ghép/Từ láy)">
+                                <div class="cat-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                                <div class="cat-info">
+                                    <h3>Cấu tạo từ (Ghép/Láy)</h3>
+                                    <p>Từ đơn, từ phức; Từ ghép phân loại/tổng hợp; Từ láy...</p>
+                                </div>
+                                <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            </div>
+                            <div class="category-card" data-category="Đọc hiểu & Thành ngữ/Tục ngữ">
+                                <div class="cat-icon"><i class="fa-solid fa-book-open"></i></div>
+                                <div class="cat-info">
+                                    <h3>Đọc hiểu & Thành ngữ</h3>
+                                    <p>Đọc hiểu đoạn văn; Phân tích ca dao, tục ngữ, thành ngữ...</p>
+                                </div>
+                                <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            </div>
+                            <div class="category-card" data-category="Tự luận cảm thụ & Ngữ pháp">
+                                <div class="cat-icon"><i class="fa-solid fa-pen-nib"></i></div>
+                                <div class="cat-info">
+                                    <h3>Tự luận cảm thụ & Ngữ pháp</h3>
+                                    <p>Xác định chủ/vị/trạng ngữ; Phân tích thơ; Đặt câu; Viết đoạn văn...</p>
+                                </div>
+                                <div class="select-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group col">
-                        <label for="test-mode"><i class="fa-solid fa-gears"></i> Chế Độ Làm Bài:</label>
-                        <select id="test-mode">
-                            <option value="exam" selected>Thi thử (Có chấm điểm & Xem đáp án khi nộp bài)</option>
-                            <option value="practice">Luyện tập (Xem giải thích ngay sau mỗi câu trả lời)</option>
-                        </select>
+
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="question-count"><i class="fa-solid fa-sliders"></i> Số Lượng Câu Hỏi:</label>
+                            <select id="question-count">
+                                <option value="10">10 câu hỏi (Nhanh)</option>
+                                <option value="20" selected>20 câu hỏi (Tiêu chuẩn)</option>
+                                <option value="30">30 câu hỏi (Thử thách)</option>
+                                <option value="all">Toàn bộ câu hỏi chuyên đề</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="test-mode"><i class="fa-solid fa-gears"></i> Chế Độ Làm Bài:</label>
+                            <select id="test-mode">
+                                <option value="exam" selected>Thi thử (Có chấm điểm & Xem đáp án khi nộp bài)</option>
+                                <option value="practice">Luyện tập (Xem giải thích ngay sau mỗi câu trả lời)</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <button id="start-quiz-btn" class="btn btn-primary btn-large">
+                        <i class="fa-solid fa-play"></i> BẮT ĐẦU THI NGAY
+                    </button>
                 </div>
 
-                <button id="start-quiz-btn" class="btn btn-primary btn-large">
-                    <i class="fa-solid fa-play"></i> BẮT ĐẦU THI NGAY
-                </button>
+                <!-- Đề thi Đọc hiểu & Làm văn (Tự luận) -->
+                <div id="essay-lobby-config" class="lobby-sub-section" style="display: none;">
+                    <div class="essay-intro">
+                        <p><i class="fa-solid fa-circle-info"></i> Hãy chọn một trong 10 bộ đề thi thử Đọc hiểu và Làm văn dưới đây. Mỗi đề gồm phần đọc hiểu văn bản/thơ và viết đoạn văn tự luận (tổng điểm 15.0đ), có thời gian làm bài đề xuất là 45 - 60 phút.</p>
+                    </div>
+                    <div class="essay-exams-grid" id="essay-exam-list">
+                        <!-- Danh sách đề thi tự luận được render bằng JS -->
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -264,6 +287,92 @@
                 </div>
             </div>
         </section>
+
+        <!-- ESSAY QUIZ SCREEN (MÀN HÌNH LÀM BÀI TỰ LUẬN) -->
+        <section id="essay-quiz-screen" class="screen" style="display: none;">
+            <div class="essay-quiz-header">
+                <div class="essay-title-area">
+                    <h2 id="essay-exam-title">Đề Khảo sát 2024 - Bên suối, bịt tai, nghe gió</h2>
+                    <span id="essay-exam-source" class="source-badge">Kỳ khảo sát chính thức vào lớp 6 TP.HCM năm 2024 (Thủ Đức)</span>
+                </div>
+                <div class="essay-header-actions">
+                    <div class="timer" id="essay-timer">
+                        <i class="fa-regular fa-clock"></i> <span id="essay-timer-text">00:00</span>
+                    </div>
+                    <button id="essay-submit-btn" class="btn btn-success">
+                        <i class="fa-solid fa-check-double"></i> NỘP BÀI THI
+                    </button>
+                </div>
+            </div>
+            
+            <div class="essay-quiz-layout">
+                <!-- PANEL TRÁI: NGỮ LIỆU ĐỌC HIỂU -->
+                <div class="essay-passage-panel">
+                    <div class="panel-card">
+                        <h3><i class="fa-solid fa-book-open"></i> Văn Bản Đọc Hiểu</h3>
+                        <div class="passage-content scrollable" id="essay-passage-content">
+                            <!-- Văn bản đọc hiểu điền bằng JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PANEL PHẢI: BÀI LÀM TỰ LUẬN -->
+                <div class="essay-questions-panel">
+                    <div id="essay-questions-container">
+                        <!-- Danh sách câu hỏi kèm textarea điền bằng JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ESSAY RESULT SCREEN (MÀN HÌNH KẾT QUẢ TỰ LUẬN & TỰ CHẤM ĐIỂM) -->
+        <section id="essay-result-screen" class="screen" style="display: none;">
+            <div class="essay-result-container">
+                <div class="essay-result-header-card">
+                    <h2><i class="fa-solid fa-square-poll-vertical"></i> KẾT QUẢ & TỰ CHẤM ĐIỂM</h2>
+                    <p class="subtitle">Hãy so sánh bài làm của em với đáp án gợi ý và hướng dẫn chấm từ giáo viên để tự cho điểm.</p>
+                    
+                    <div class="essay-score-summary">
+                        <div class="score-display-large">
+                            <span class="score-val" id="essay-total-score">0.0</span>
+                            <span class="score-max">/ 15.0 điểm</span>
+                        </div>
+                        <div class="teacher-feedback-card">
+                            <h4><i class="fa-solid fa-user-tie"></i> Nhận xét của Giáo viên (20+ năm kinh nghiệm):</h4>
+                            <p id="essay-teacher-comment">Đang đợi bạn chấm điểm để đưa ra nhận xét...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button id="essay-restart-btn" class="btn btn-primary">
+                            <i class="fa-solid fa-rotate-left"></i> Làm lại đề này
+                        </button>
+                        <button id="essay-go-home-btn" class="btn btn-secondary">
+                            <i class="fa-solid fa-house"></i> Về trang chủ
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="essay-grading-layout">
+                    <!-- PANEL TRÁI: NGỮ LIỆU ĐỌC HIỂU -->
+                    <div class="essay-passage-panel-result">
+                        <div class="panel-card">
+                            <h3><i class="fa-solid fa-book-open"></i> Văn Bản Đọc Hiểu</h3>
+                            <div class="passage-content scrollable" id="essay-result-passage-content">
+                                <!-- Điền bằng JS -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PANEL PHẢI: SO SÁNH SIDE-BY-SIDE & TỰ CHẤM ĐIỂM -->
+                    <div class="essay-grading-panel">
+                        <div id="essay-grading-container">
+                            <!-- Các câu hỏi kèm bài làm, đáp án gợi ý và thanh trượt slider chấm điểm điền bằng JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <!-- MODAL BÁO LỖI (GIẢ LẬP) -->
@@ -291,6 +400,7 @@
 
     <!-- SCRIPTS -->
     <script src="questions.js"></script>
+    <script src="reading_writing_exams.js"></script>
     <script src="quiz.js"></script>
 </body>
 </html>

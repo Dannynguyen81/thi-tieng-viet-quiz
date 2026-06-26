@@ -15,6 +15,14 @@ let selectedCategory = "all";
 let questionCountLimit = 20;
 let reportingQuestionId = null;
 
+// Essay Mode State
+let activeEssayExam = null;
+let essayUserAnswers = {}; // { questionId: typedText }
+let essayScores = {}; // { questionId: scoreValue }
+let essayTimerInterval = null;
+let essayElapsedTime = 0;
+let essayStartTime = null;
+
 // DOM Elements
 const bodyEl = document.body;
 const themeToggleBtn = document.getElementById("theme-toggle-btn");
@@ -71,6 +79,29 @@ const closeModalBtn = document.getElementById("close-modal-btn");
 const reportTypeSelect = document.getElementById("report-type");
 const reportContentTextarea = document.getElementById("report-content");
 const submitReportBtn = document.getElementById("submit-report-btn");
+
+// Essay selectors
+const tabQuizMode = document.getElementById("tab-quiz-mode");
+const tabEssayMode = document.getElementById("tab-essay-mode");
+const quizLobbyConfig = document.getElementById("quiz-lobby-config");
+const essayLobbyConfig = document.getElementById("essay-lobby-config");
+const essayExamList = document.getElementById("essay-exam-list");
+
+const essayQuizScreen = document.getElementById("essay-quiz-screen");
+const essayExamTitle = document.getElementById("essay-exam-title");
+const essayExamSource = document.getElementById("essay-exam-source");
+const essayTimerText = document.getElementById("essay-timer-text");
+const essaySubmitBtn = document.getElementById("essay-submit-btn");
+const essayPassageContent = document.getElementById("essay-passage-content");
+const essayQuestionsContainer = document.getElementById("essay-questions-container");
+
+const essayResultScreen = document.getElementById("essay-result-screen");
+const essayTotalScore = document.getElementById("essay-total-score");
+const essayTeacherComment = document.getElementById("essay-teacher-comment");
+const essayRestartBtn = document.getElementById("essay-restart-btn");
+const essayGoHomeBtn = document.getElementById("essay-go-home-btn");
+const essayResultPassageContent = document.getElementById("essay-result-passage-content");
+const essayGradingContainer = document.getElementById("essay-grading-container");
 
 /* ==========================================================================
    INITIALIZATION & THEME MANAGER
@@ -165,6 +196,26 @@ function registerEvents() {
         }
     });
     submitReportBtn.addEventListener("click", submitErrorReport);
+
+    // Essay Mode Event listeners
+    if (tabQuizMode) {
+        tabQuizMode.addEventListener("click", () => switchLobbyTab("quiz"));
+    }
+    if (tabEssayMode) {
+        tabEssayMode.addEventListener("click", () => switchLobbyTab("essay"));
+    }
+    if (essaySubmitBtn) {
+        essaySubmitBtn.addEventListener("click", confirmSubmitEssay);
+    }
+    if (essayRestartBtn) {
+        essayRestartBtn.addEventListener("click", restartEssayExam);
+    }
+    if (essayGoHomeBtn) {
+        essayGoHomeBtn.addEventListener("click", () => {
+            if (essayTimerInterval) clearInterval(essayTimerInterval);
+            switchScreen(lobbyScreen);
+        });
+    }
 }
 
 function switchScreen(targetScreen) {
@@ -713,4 +764,228 @@ function escapeHtml(text) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+}
+
+/* ==========================================================================
+   ESSAY / READING & WRITING LOGIC ENGINE
+   ========================================================================== */
+
+function switchLobbyTab(tab) {
+    if (tab === "quiz") {
+        tabQuizMode.classList.add("active");
+        tabEssayMode.classList.remove("active");
+        quizLobbyConfig.classList.add("active");
+        quizLobbyConfig.style.display = "block";
+        essayLobbyConfig.classList.remove("active");
+        essayLobbyConfig.style.display = "none";
+    } else {
+        tabQuizMode.classList.remove("active");
+        tabEssayMode.classList.add("active");
+        quizLobbyConfig.classList.remove("active");
+        quizLobbyConfig.style.display = "none";
+        essayLobbyConfig.classList.add("active");
+        essayLobbyConfig.style.display = "block";
+        renderEssayExamsList();
+    }
+}
+
+function renderEssayExamsList() {
+    if (!essayExamList) return;
+    essayExamList.innerHTML = "";
+    
+    readingWritingExams.forEach((exam) => {
+        const completedKey = `completed_essay_${exam.id}`;
+        const scoreKey = `score_essay_${exam.id}`;
+        const isCompleted = localStorage.getItem(completedKey) === "true";
+        const savedScore = localStorage.getItem(scoreKey);
+
+        const card = document.createElement("div");
+        card.className = `essay-card${isCompleted ? ' completed' : ''}`;
+        card.innerHTML = `
+            <div>
+                <h3>${escapeHtml(exam.title)}</h3>
+                <span class="source-badge">${escapeHtml(exam.source)}</span>
+            </div>
+            <div class="essay-card-footer">
+                ${isCompleted && savedScore ? `<span class="score-badge"><i class="fa-solid fa-star"></i> ${savedScore}/15.0đ</span>` : '<span></span>'}
+                <button class="btn btn-primary btn-sm btn-start-essay" data-id="${exam.id}">
+                    <i class="fa-solid fa-pen"></i> Làm bài
+                </button>
+            </div>
+        `;
+        
+        card.querySelector(".btn-start-essay").addEventListener("click", (e) => {
+            e.stopPropagation();
+            startEssayExam(exam.id);
+        });
+        
+        card.addEventListener("click", () => {
+            startEssayExam(exam.id);
+        });
+
+        essayExamList.appendChild(card);
+    });
+}
+
+function startEssayExam(examId) {
+    const exam = readingWritingExams.find(e => e.id === examId);
+    if (!exam) return;
+    
+    activeEssayExam = exam;
+    essayUserAnswers = {};
+    essayScores = {};
+    essayElapsedTime = 0;
+    
+    // Set titles
+    essayExamTitle.textContent = exam.title;
+    essayExamSource.textContent = exam.source;
+    
+    // Set passage content
+    essayPassageContent.innerHTML = exam.passage;
+    
+    // Render questions
+    essayQuestionsContainer.innerHTML = "";
+    exam.questions.forEach((q, idx) => {
+        const qCard = document.createElement("div");
+        qCard.className = "essay-q-card";
+        qCard.innerHTML = `
+            <div class="essay-q-card-header">
+                <span class="essay-q-badge">${q.label || `Câu ${idx + 1}`}</span>
+                <span class="essay-q-score">Điểm tối đa: ${q.maxScore}đ</span>
+            </div>
+            <div class="essay-q-text">${q.text}</div>
+            <textarea id="essay-ans-${q.id}" placeholder="Nhập bài làm của em tại đây..." rows="6"></textarea>
+        `;
+        essayQuestionsContainer.appendChild(qCard);
+    });
+    
+    // Start timer
+    if (essayTimerInterval) clearInterval(essayTimerInterval);
+    essayStartTime = Date.now();
+    updateEssayTimerUI();
+    essayTimerInterval = setInterval(() => {
+        essayElapsedTime = Math.floor((Date.now() - essayStartTime) / 1000);
+        updateEssayTimerUI();
+    }, 1000);
+    
+    switchScreen(essayQuizScreen);
+}
+
+function updateEssayTimerUI() {
+    const mins = Math.floor(essayElapsedTime / 60).toString().padStart(2, "0");
+    const secs = (essayElapsedTime % 60).toString().padStart(2, "0");
+    essayTimerText.textContent = `${mins}:${secs}`;
+}
+
+function confirmSubmitEssay() {
+    if (!confirm("Em có chắc chắn muốn nộp bài thi Đọc hiểu và Làm văn này không?")) return;
+    
+    if (essayTimerInterval) clearInterval(essayTimerInterval);
+    
+    // Collect answers
+    activeEssayExam.questions.forEach(q => {
+        const txtarea = document.getElementById(`essay-ans-${q.id}`);
+        essayUserAnswers[q.id] = txtarea ? txtarea.value.trim() : "";
+        essayScores[q.id] = 0; // Initialize scores to 0
+    });
+    
+    showEssayResults();
+}
+
+function showEssayResults() {
+    essayResultPassageContent.innerHTML = activeEssayExam.passage;
+    renderEssayGradingQuestions();
+    updateEssayScoreDisplay();
+    switchScreen(essayResultScreen);
+}
+
+function renderEssayGradingQuestions() {
+    essayGradingContainer.innerHTML = "";
+    activeEssayExam.questions.forEach((q, idx) => {
+        const gradeCard = document.createElement("div");
+        gradeCard.className = "essay-grade-card";
+        
+        const studentAns = essayUserAnswers[q.id] || "<em>(Em không trả lời câu hỏi này)</em>";
+        
+        gradeCard.innerHTML = `
+            <div class="essay-q-card-header">
+                <span class="essay-q-badge">${q.label || `Câu ${idx + 1}`}</span>
+                <span class="essay-q-score">Điểm tối đa: ${q.maxScore}đ</span>
+            </div>
+            <div class="essay-q-text" style="margin-bottom:15px;">${q.text}</div>
+            
+            <div class="compare-grid">
+                <div class="compare-box student">
+                    <h5><i class="fa-solid fa-user"></i> Bài làm của em:</h5>
+                    <div>${escapeHtml(studentAns).replace(/\n/g, '<br>')}</div>
+                </div>
+                <div class="compare-box teacher">
+                    <h5><i class="fa-solid fa-user-tie"></i> Đáp án gợi ý (Giáo viên):</h5>
+                    <div>${q.modelAnswer.replace(/\n/g, '<br>')}</div>
+                </div>
+                <div class="compare-box rubric">
+                    <h5><i class="fa-solid fa-list-check"></i> Hướng dẫn chấm điểm:</h5>
+                    <div>${q.rubric.replace(/\n/g, '<br>')}</div>
+                </div>
+            </div>
+            
+            <div class="grading-slider-container">
+                <span class="slider-label"><i class="fa-solid fa-star-half-stroke"></i> Cho điểm câu này:</span>
+                <div class="slider-input-group">
+                    <input type="range" id="grade-slider-${q.id}" min="0" max="${q.maxScore}" step="0.25" value="0">
+                    <span class="slider-score-badge" id="grade-badge-${q.id}">0 / ${q.maxScore}</span>
+                </div>
+            </div>
+        `;
+        
+        essayGradingContainer.appendChild(gradeCard);
+        
+        // Add event listener to slider
+        const slider = gradeCard.querySelector(`#grade-slider-${q.id}`);
+        const badge = gradeCard.querySelector(`#grade-badge-${q.id}`);
+        slider.addEventListener("input", (e) => {
+            const val = parseFloat(e.target.value);
+            essayScores[q.id] = val;
+            badge.textContent = `${val.toFixed(2)} / ${q.maxScore}`;
+            updateEssayScoreDisplay();
+        });
+    });
+}
+
+function updateEssayScoreDisplay() {
+    let total = 0;
+    activeEssayExam.questions.forEach(q => {
+        total += essayScores[q.id] || 0;
+    });
+    
+    essayTotalScore.textContent = total.toFixed(2);
+    
+    // Generate comment based on teacher's 20 years experience persona
+    let comment = "";
+    if (total >= 13.0) {
+        comment = "Chúc mừng em! Bài làm của em thể hiện năng lực cảm thụ văn học rất tốt, tư duy sắc bén và khả năng diễn đạt lưu loát, giàu cảm xúc. Đoạn văn nghị luận có lập luận chặt chẽ và sáng tạo. Hãy tiếp tục phát huy phong độ này trong kỳ thi chính thức nhé! Thầy/Cô rất tự hào về em.";
+    } else if (total >= 10.5) {
+        comment = "Bài làm rất khá! Em đã hiểu rõ yêu cầu đề bài, trả lời chính xác các câu hỏi đọc hiểu và biết cách xây dựng đoạn văn làm văn có bố cục rõ ràng. Nếu chú ý chau chuốt thêm từ ngữ, tăng tính liên kết câu và đưa thêm cảm xúc cá nhân vào bài làm, điểm số của em sẽ còn cao hơn nữa. Cố lên em!";
+    } else if (total >= 7.5) {
+        comment = "Em làm bài ở mức trung bình khá. Các ý trả lời đọc hiểu cơ bản đã có nhưng chưa thật sự đầy đủ và sâu sắc. Đoạn văn làm văn còn hơi ngắn hoặc diễn đạt đôi chỗ còn lặp từ, lỗi chính tả. Em cần đọc kỹ văn bản hơn, lập dàn ý sơ lược trước khi viết để bài làm mạch lạc hơn nhé.";
+    } else {
+        comment = "Em cần nỗ lực nhiều hơn. Các câu trả lời đọc hiểu còn sơ sài và chưa đi vào trọng tâm đề bài. Đoạn văn viết còn chưa đảm bảo dung lượng và cấu trúc cơ bản. Hãy chăm chỉ đọc sách, luyện tập viết đoạn văn hàng ngày và tham khảo kỹ các bài văn mẫu của Thầy/Cô để tiến bộ hơn nhé. Thầy/Cô tin em sẽ làm tốt hơn ở lần sau!";
+    }
+    
+    essayTeacherComment.textContent = comment;
+    
+    // Save state
+    const completedKey = `completed_essay_${activeEssayExam.id}`;
+    const scoreKey = `score_essay_${activeEssayExam.id}`;
+    localStorage.setItem(completedKey, "true");
+    localStorage.setItem(scoreKey, total.toFixed(2));
+    
+    // Re-render lobby lists to update completed badges/scores
+    renderEssayExamsList();
+}
+
+function restartEssayExam() {
+    if (confirm("Em có muốn làm lại đề thi này từ đầu không? Toàn bộ bài làm hiện tại sẽ bị xóa.")) {
+        startEssayExam(activeEssayExam.id);
+    }
 }
