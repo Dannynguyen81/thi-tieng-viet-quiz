@@ -92,6 +92,7 @@ const essayExamTitle = document.getElementById("essay-exam-title");
 const essayExamSource = document.getElementById("essay-exam-source");
 const essayTimerText = document.getElementById("essay-timer-text");
 const essaySubmitBtn = document.getElementById("essay-submit-btn");
+const essayExitBtn = document.getElementById("essay-exit-btn");
 
 const essayResultScreen = document.getElementById("essay-result-screen");
 const essayTotalScore = document.getElementById("essay-total-score");
@@ -206,9 +207,19 @@ function registerEvents() {
     if (essayRestartBtn) {
         essayRestartBtn.addEventListener("click", restartEssayExam);
     }
+    if (essayExitBtn) {
+        essayExitBtn.addEventListener("click", () => {
+            if (confirm("Em có chắc chắn muốn thoát khỏi phòng thi không? Toàn bộ bài làm hiện tại sẽ bị xóa.")) {
+                if (essayTimerInterval) clearInterval(essayTimerInterval);
+                switchLobbyTab("essay");
+                switchScreen(lobbyScreen);
+            }
+        });
+    }
     if (essayGoHomeBtn) {
         essayGoHomeBtn.addEventListener("click", () => {
             if (essayTimerInterval) clearInterval(essayTimerInterval);
+            switchLobbyTab("essay");
             switchScreen(lobbyScreen);
         });
     }
